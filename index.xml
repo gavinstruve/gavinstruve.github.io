@@ -38,17 +38,7 @@
         <author>Gavin Struve</author>
         <guid>http://gavinstruve.github.io/about/</guid>
         <description>
-          &lt;p&gt;&lt;strong&gt;Hugo Prose&lt;/strong&gt; is a minimalist theme derived from the &lt;a href=&#34;https://github.com/yihui/hugo-xmin&#34;&gt;&lt;strong&gt;XMin&lt;/strong&gt;
-theme&lt;/a&gt;, and inspired by
-&lt;a href=&#34;https://wowchemy.com&#34;&gt;Wowchemy&lt;/a&gt; (previously known as the Academic theme),
-&lt;a href=&#34;https://distill.pub&#34;&gt;Distill&lt;/a&gt;, and
-&lt;a href=&#34;https://github.com/edwardtufte/tufte.css&#34;&gt;tufte.css&lt;/a&gt;. This theme itself is
-completely plain-text and lightweight, and does not use any icons, images, or
-emojis.&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; By default, the theme only uses two JavaScript libraries, MathJax
-and highlight.js, and they are loaded only when necessary. The rest of
-JavaScript is written from scratch and also relatively short. This theme does
-not use any CSS frameworks, and the full CSS code is also written from scratch
-(about 300 lines).&lt;/p&gt;
+          &lt;p&gt;I&amp;rsquo;m a sophomore at the University of Nebraska-Lincoln graduating in the spring of 2023 with a double-major in sports journalism and advertising &amp;amp; public relations. I made this page for a course, SPMC 350 Sports Data Analysis &amp;amp; Visualization, to host my semester projects on. I&amp;rsquo;m a sports writer for the student newspaper, the Daily Nebraskan, predominantly covering basketball and distance running. I also have an interest in sports statistics, so I am hoping this class will provide an outlet and show me how to use it.&lt;/p&gt;
 &lt;div class=&#34;quote-right&#34;&gt;
 &lt;blockquote&gt;
 &lt;p&gt;It is not the man who has too little that is poor, but the one who hankers after more.&lt;/p&gt;
@@ -84,7 +74,7 @@ footer menu is defined in the &lt;code&gt;footer&lt;/code&gt; option, e.g.,&lt;/
 website, or an external link (e.g., &lt;code&gt;url: &amp;quot;https://github.com/yihui&amp;quot;&lt;/code&gt;). The
 order of the menu items is determined by the &lt;code&gt;weight&lt;/code&gt; values. If a menu item has
 a &lt;code&gt;pre&lt;/code&gt; value, it will be used as the class of the menu item. The special value
-&lt;code&gt;optional&lt;/code&gt; indicates that this menu item will be hidden on small screens.&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;code&gt;optional&lt;/code&gt; indicates that this menu item will be hidden on small screens.&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
 &lt;p&gt;The header menu can be made sticky via the parameter &lt;code&gt;pageFeatures&lt;/code&gt; in
 &lt;code&gt;config.yaml&lt;/code&gt;:&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;params:
@@ -106,7 +96,7 @@ contain arbitrary elements.&lt;/p&gt;
 &lt;li&gt;
 &lt;p&gt;The info cards come from the &lt;code&gt;content/card/&lt;/code&gt; directory. Each (Markdown) file
 is displayed on the home page as a separate card. The title is displayed
-vertically on the left or right side.&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; If you want to customize the style
+vertically on the left or right side.&lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; If you want to customize the style
 of a certain card, you may use the YAML option &lt;code&gt;style&lt;/code&gt; in the file, e.g.,&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-yaml&#34;&gt;---
 title: &amp;quot;Courses&amp;quot;
@@ -199,7 +189,7 @@ Pandoc/R Markdown.&lt;/p&gt;
 &lt;p&gt;Section headers can be automatically numbered, no matter if you use
 Hugo/goldmark or Pandoc/R Markdown.&lt;/p&gt;
 &lt;h3 id=&#34;footnotes-citations-and-sidenotes&#34;&gt;Footnotes, citations, and sidenotes&lt;/h3&gt;
-&lt;p&gt;Footnotes and citation entries&lt;sup id=&#34;fnref:4&#34;&gt;&lt;a href=&#34;#fn:4&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;4&lt;/a&gt;&lt;/sup&gt; are moved to the right margin by default. If
+&lt;p&gt;Footnotes and citation entries&lt;sup id=&#34;fnref:3&#34;&gt;&lt;a href=&#34;#fn:3&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; are moved to the right margin by default. If
 you want to write arbitrary sidenotes, use the classes &lt;code&gt;side&lt;/code&gt; and
 &lt;code&gt;side-left&lt;/code&gt;/&lt;code&gt;side-right&lt;/code&gt;.&lt;/p&gt;
 &lt;div class=&#34;side side-left&#34;&gt;
@@ -386,21 +376,18 @@ the dark mode.&lt;/p&gt;
 &lt;hr&gt;
 &lt;ol&gt;
 &lt;li id=&#34;fn:1&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;This example website does contain images and videos as demos, though. &lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
 &lt;p&gt;For example, &lt;code&gt;pre: &amp;quot;optional&amp;quot;&lt;/code&gt; will generate the menu item
 &lt;code&gt;&amp;lt;li class=&amp;quot;optional&amp;quot;&amp;gt;&lt;/code&gt;. It may be an unimportant item that you do not mind
-hiding on smaller screens. &lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+hiding on smaller screens. &lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34; role=&#34;doc-endnote&#34;&gt;
+&lt;p&gt;We recommend that you keep the title short so it can fit on one line. &lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li id=&#34;fn:3&#34; role=&#34;doc-endnote&#34;&gt;
-&lt;p&gt;We recommend that you keep the title short so it can fit on one line. &lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li id=&#34;fn:4&#34; role=&#34;doc-endnote&#34;&gt;
 &lt;p&gt;Note that if you want to use citations, you have &lt;a href=&#34;https://bookdown.org/yihui/blogdown/output-format.html&#34;&gt;the R Markdown
 format&lt;/a&gt; with the R
 package &lt;strong&gt;blogdown&lt;/strong&gt;. Plain Markdown posts (&lt;code&gt;.md&lt;/code&gt; files) do not support
-citations. &lt;a href=&#34;#fnref:4&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+citations. &lt;a href=&#34;#fnref:3&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/section&gt;
