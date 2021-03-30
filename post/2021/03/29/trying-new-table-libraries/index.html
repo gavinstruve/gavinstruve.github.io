@@ -105,6 +105,151 @@ library(tidyverse)</code></pre>
 ##   Conference = col_character()
 ## )
 ## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>badfball %&gt;% separate(Result, into=c(&quot;Outcome&quot;, &quot;Score&quot;), sep=&quot;\\(&quot;) </code></pre>
+<pre><code>## # A tibble: 1,100 x 52
+##     Game Date  HomeAway Opponent Outcome Score PassingCmp PassingAtt PassingPct
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+##  1     1 10/2… &lt;NA&gt;     Nebraska &quot;W &quot;    52-1…         20         21       95.2
+##  2     2 10/3… @        Penn St… &quot;W &quot;    38-2…         28         34       82.4
+##  3     3 11/7… &lt;NA&gt;     Rutgers  &quot;W &quot;    49-2…         24         28       85.7
+##  4     4 11/2… &lt;NA&gt;     Indiana  &quot;W &quot;    42-3…         18         30       60  
+##  5     5 12/5… @        Michiga… &quot;W &quot;    52-1…         17         24       70.8
+##  6     6 12/1… N        Northwe… &quot;W &quot;    22-1…         12         27       44.4
+##  7     7 1/1/… N        Clemson* &quot;W &quot;    49-2…         22         28       78.6
+##  8     1 10/2… &lt;NA&gt;     Penn St… &quot;W &quot;    36-3…         19         36       52.8
+##  9     2 10/3… @        Rutgers  &quot;W &quot;    37-2…         17         26       65.4
+## 10     3 11/7… &lt;NA&gt;     Michigan &quot;W &quot;    38-2…         30         50       60  
+## # … with 1,090 more rows, and 43 more variables: PassingYds &lt;dbl&gt;,
+## #   PassingTD &lt;dbl&gt;, RushingAtt &lt;dbl&gt;, RushingYds &lt;dbl&gt;, RushingAvg &lt;dbl&gt;,
+## #   RushingTD &lt;dbl&gt;, OffensivePlays &lt;dbl&gt;, OffensiveYards &lt;dbl&gt;,
+## #   OffenseAvg &lt;dbl&gt;, FirstDownPass &lt;dbl&gt;, FirstDownRush &lt;dbl&gt;,
+## #   FirstDownPen &lt;dbl&gt;, FirstDownTotal &lt;dbl&gt;, Penalties &lt;dbl&gt;,
+## #   PenaltyYds &lt;dbl&gt;, Fumbles &lt;dbl&gt;, Interceptions &lt;dbl&gt;, TotalTurnovers &lt;dbl&gt;,
+## #   TeamFull &lt;chr&gt;, TeamURL &lt;chr&gt;, DefPassingCmp &lt;dbl&gt;, DefPassingAtt &lt;dbl&gt;,
+## #   DefPassingPct &lt;dbl&gt;, DefPassingYds &lt;dbl&gt;, DefPassingTD &lt;dbl&gt;,
+## #   DefRushingAtt &lt;dbl&gt;, DefRushingYds &lt;dbl&gt;, DefRushingAvg &lt;dbl&gt;,
+## #   DefRushingTD &lt;dbl&gt;, DefPlays &lt;dbl&gt;, DefYards &lt;dbl&gt;, DefAvg &lt;dbl&gt;,
+## #   DefFirstDownPass &lt;dbl&gt;, DefFirstDownRush &lt;dbl&gt;, DefFirstDownPen &lt;dbl&gt;,
+## #   DefFirstDownTotal &lt;dbl&gt;, DefPenalties &lt;dbl&gt;, DefPenaltyYds &lt;dbl&gt;,
+## #   DefFumbles &lt;dbl&gt;, DefInterceptions &lt;dbl&gt;, DefTotalTurnovers &lt;dbl&gt;,
+## #   Team &lt;chr&gt;, Conference &lt;chr&gt;</code></pre>
+<p>As you can see, I’ve split result into two columns, outcome and score, using separate. I had to use \ because parentheses are a special character.</p>
+<pre class="r"><code>badfball %&gt;% separate(Result, into=c(&quot;Outcome&quot;, &quot;Score&quot;), sep=&quot;\\(&quot;) %&gt;%
+mutate(Score=gsub(&quot;)&quot;,&quot;&quot;, Score)) %&gt;% head()</code></pre>
+<pre><code>## # A tibble: 6 x 52
+##    Game Date  HomeAway Opponent Outcome Score PassingCmp PassingAtt PassingPct
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+## 1     1 10/2… &lt;NA&gt;     Nebraska &quot;W &quot;    52-17         20         21       95.2
+## 2     2 10/3… @        Penn St… &quot;W &quot;    38-25         28         34       82.4
+## 3     3 11/7… &lt;NA&gt;     Rutgers  &quot;W &quot;    49-27         24         28       85.7
+## 4     4 11/2… &lt;NA&gt;     Indiana  &quot;W &quot;    42-35         18         30       60  
+## 5     5 12/5… @        Michiga… &quot;W &quot;    52-12         17         24       70.8
+## 6     6 12/1… N        Northwe… &quot;W &quot;    22-10         12         27       44.4
+## # … with 43 more variables: PassingYds &lt;dbl&gt;, PassingTD &lt;dbl&gt;,
+## #   RushingAtt &lt;dbl&gt;, RushingYds &lt;dbl&gt;, RushingAvg &lt;dbl&gt;, RushingTD &lt;dbl&gt;,
+## #   OffensivePlays &lt;dbl&gt;, OffensiveYards &lt;dbl&gt;, OffenseAvg &lt;dbl&gt;,
+## #   FirstDownPass &lt;dbl&gt;, FirstDownRush &lt;dbl&gt;, FirstDownPen &lt;dbl&gt;,
+## #   FirstDownTotal &lt;dbl&gt;, Penalties &lt;dbl&gt;, PenaltyYds &lt;dbl&gt;, Fumbles &lt;dbl&gt;,
+## #   Interceptions &lt;dbl&gt;, TotalTurnovers &lt;dbl&gt;, TeamFull &lt;chr&gt;, TeamURL &lt;chr&gt;,
+## #   DefPassingCmp &lt;dbl&gt;, DefPassingAtt &lt;dbl&gt;, DefPassingPct &lt;dbl&gt;,
+## #   DefPassingYds &lt;dbl&gt;, DefPassingTD &lt;dbl&gt;, DefRushingAtt &lt;dbl&gt;,
+## #   DefRushingYds &lt;dbl&gt;, DefRushingAvg &lt;dbl&gt;, DefRushingTD &lt;dbl&gt;,
+## #   DefPlays &lt;dbl&gt;, DefYards &lt;dbl&gt;, DefAvg &lt;dbl&gt;, DefFirstDownPass &lt;dbl&gt;,
+## #   DefFirstDownRush &lt;dbl&gt;, DefFirstDownPen &lt;dbl&gt;, DefFirstDownTotal &lt;dbl&gt;,
+## #   DefPenalties &lt;dbl&gt;, DefPenaltyYds &lt;dbl&gt;, DefFumbles &lt;dbl&gt;,
+## #   DefInterceptions &lt;dbl&gt;, DefTotalTurnovers &lt;dbl&gt;, Team &lt;chr&gt;,
+## #   Conference &lt;chr&gt;</code></pre>
+<p>Adding gsub allows us to remove the trailing “)” in the score column.</p>
+<pre class="r"><code>newbadfball &lt;- badfball %&gt;% separate(Result, into=c(&quot;Outcome&quot;, &quot;Score&quot;), sep=&quot;\\(&quot;) %&gt;% mutate(Score=gsub(&quot;)&quot;,&quot;&quot;, Score)) %&gt;%
+separate(Score, into=c(&quot;TeamScore&quot;, &quot;OpponentScore&quot;), sep=&quot;-&quot; ) %&gt;% 
+mutate(TeamScore = as.numeric(TeamScore), OpponentScore = as.numeric(OpponentScore))</code></pre>
+<p>This separates score into teamscore and opponentscore using separate and splitting them at the “-”. It also creates a new dataframe called newbadfball that’s updated. I also mutated to add as.numeric which makes sure TeamScore and OpponentScore are numeric values, so R doesn’t mistake it for text and we’re able to make a differential.</p>
+<pre class="r"><code>differential &lt;- newbadfball %&gt;% mutate(diff = TeamScore - OpponentScore)</code></pre>
+<pre class="r"><code>differential %&gt;% filter(diff &gt; 65) -&gt; worstgames</code></pre>
+<p>I created a new dataframe called differential here that subtracts the opponent score from the team score of every game to get the scoring margin/point differential. I also created a dataframe called worstgames that only shows games in which a team won by over 65 points. It appears there was only one such game in this dataset, a 73-7 victory by Clemson over Georgia Tech. Ironically, Tech holds the record for the largest margin of victory all time for a Division One team, a 222-0 win in 1916.</p>
+<pre class="r"><code>differential</code></pre>
+<pre><code>## # A tibble: 1,100 x 54
+##     Game Date  HomeAway Opponent Outcome TeamScore OpponentScore PassingCmp
+##    &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;
+##  1     1 10/2… &lt;NA&gt;     Nebraska &quot;W &quot;           52            17         20
+##  2     2 10/3… @        Penn St… &quot;W &quot;           38            25         28
+##  3     3 11/7… &lt;NA&gt;     Rutgers  &quot;W &quot;           49            27         24
+##  4     4 11/2… &lt;NA&gt;     Indiana  &quot;W &quot;           42            35         18
+##  5     5 12/5… @        Michiga… &quot;W &quot;           52            12         17
+##  6     6 12/1… N        Northwe… &quot;W &quot;           22            10         12
+##  7     7 1/1/… N        Clemson* &quot;W &quot;           49            28         22
+##  8     1 10/2… &lt;NA&gt;     Penn St… &quot;W &quot;           36            35         19
+##  9     2 10/3… @        Rutgers  &quot;W &quot;           37            21         17
+## 10     3 11/7… &lt;NA&gt;     Michigan &quot;W &quot;           38            21         30
+## # … with 1,090 more rows, and 46 more variables: PassingAtt &lt;dbl&gt;,
+## #   PassingPct &lt;dbl&gt;, PassingYds &lt;dbl&gt;, PassingTD &lt;dbl&gt;, RushingAtt &lt;dbl&gt;,
+## #   RushingYds &lt;dbl&gt;, RushingAvg &lt;dbl&gt;, RushingTD &lt;dbl&gt;, OffensivePlays &lt;dbl&gt;,
+## #   OffensiveYards &lt;dbl&gt;, OffenseAvg &lt;dbl&gt;, FirstDownPass &lt;dbl&gt;,
+## #   FirstDownRush &lt;dbl&gt;, FirstDownPen &lt;dbl&gt;, FirstDownTotal &lt;dbl&gt;,
+## #   Penalties &lt;dbl&gt;, PenaltyYds &lt;dbl&gt;, Fumbles &lt;dbl&gt;, Interceptions &lt;dbl&gt;,
+## #   TotalTurnovers &lt;dbl&gt;, TeamFull &lt;chr&gt;, TeamURL &lt;chr&gt;, DefPassingCmp &lt;dbl&gt;,
+## #   DefPassingAtt &lt;dbl&gt;, DefPassingPct &lt;dbl&gt;, DefPassingYds &lt;dbl&gt;,
+## #   DefPassingTD &lt;dbl&gt;, DefRushingAtt &lt;dbl&gt;, DefRushingYds &lt;dbl&gt;,
+## #   DefRushingAvg &lt;dbl&gt;, DefRushingTD &lt;dbl&gt;, DefPlays &lt;dbl&gt;, DefYards &lt;dbl&gt;,
+## #   DefAvg &lt;dbl&gt;, DefFirstDownPass &lt;dbl&gt;, DefFirstDownRush &lt;dbl&gt;,
+## #   DefFirstDownPen &lt;dbl&gt;, DefFirstDownTotal &lt;dbl&gt;, DefPenalties &lt;dbl&gt;,
+## #   DefPenaltyYds &lt;dbl&gt;, DefFumbles &lt;dbl&gt;, DefInterceptions &lt;dbl&gt;,
+## #   DefTotalTurnovers &lt;dbl&gt;, Team &lt;chr&gt;, Conference &lt;chr&gt;, diff &lt;dbl&gt;</code></pre>
+<pre class="r"><code>worstgames</code></pre>
+<pre><code>## # A tibble: 1 x 54
+##    Game Date  HomeAway Opponent Outcome TeamScore OpponentScore PassingCmp
+##   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;       &lt;dbl&gt;         &lt;dbl&gt;      &lt;dbl&gt;
+## 1     5 10/1… @        Georgia… &quot;W &quot;           73             7         33
+## # … with 46 more variables: PassingAtt &lt;dbl&gt;, PassingPct &lt;dbl&gt;,
+## #   PassingYds &lt;dbl&gt;, PassingTD &lt;dbl&gt;, RushingAtt &lt;dbl&gt;, RushingYds &lt;dbl&gt;,
+## #   RushingAvg &lt;dbl&gt;, RushingTD &lt;dbl&gt;, OffensivePlays &lt;dbl&gt;,
+## #   OffensiveYards &lt;dbl&gt;, OffenseAvg &lt;dbl&gt;, FirstDownPass &lt;dbl&gt;,
+## #   FirstDownRush &lt;dbl&gt;, FirstDownPen &lt;dbl&gt;, FirstDownTotal &lt;dbl&gt;,
+## #   Penalties &lt;dbl&gt;, PenaltyYds &lt;dbl&gt;, Fumbles &lt;dbl&gt;, Interceptions &lt;dbl&gt;,
+## #   TotalTurnovers &lt;dbl&gt;, TeamFull &lt;chr&gt;, TeamURL &lt;chr&gt;, DefPassingCmp &lt;dbl&gt;,
+## #   DefPassingAtt &lt;dbl&gt;, DefPassingPct &lt;dbl&gt;, DefPassingYds &lt;dbl&gt;,
+## #   DefPassingTD &lt;dbl&gt;, DefRushingAtt &lt;dbl&gt;, DefRushingYds &lt;dbl&gt;,
+## #   DefRushingAvg &lt;dbl&gt;, DefRushingTD &lt;dbl&gt;, DefPlays &lt;dbl&gt;, DefYards &lt;dbl&gt;,
+## #   DefAvg &lt;dbl&gt;, DefFirstDownPass &lt;dbl&gt;, DefFirstDownRush &lt;dbl&gt;,
+## #   DefFirstDownPen &lt;dbl&gt;, DefFirstDownTotal &lt;dbl&gt;, DefPenalties &lt;dbl&gt;,
+## #   DefPenaltyYds &lt;dbl&gt;, DefFumbles &lt;dbl&gt;, DefInterceptions &lt;dbl&gt;,
+## #   DefTotalTurnovers &lt;dbl&gt;, Team &lt;chr&gt;, Conference &lt;chr&gt;, diff &lt;dbl&gt;</code></pre>
+<pre class="r"><code>library(ggplot2)</code></pre>
+<pre class="r"><code>ggplot()+ geom_point(data=differential, aes(x=TeamScore, y=OpponentScore), color=&quot;grey&quot;)</code></pre>
+<p><img src="http://gavinstruve.github.io/post/2021/03/29/trying-new-table-libraries/index_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+Ggplot helps create a chart showing the differential of about every game this season. As can be expected, it’s all over the place. The best possible scenario is landing in the bottom right corner, meaning you scored a lot of points and let up very few, and the top left is the exact opposite.</p>
+<pre class="r"><code>ggplot() + geom_point(data=differential, aes(x=TeamScore, y=OpponentScore), color=&quot;grey&quot;) + geom_point(data=worstgames, aes(x=TeamScore, y=OpponentScore), color=&quot;red&quot;)</code></pre>
+<p><img src="http://gavinstruve.github.io/post/2021/03/29/trying-new-table-libraries/index_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+Now, using the worstgames dataframe, I’ve marked the single game that met that standard (a 65 point victory) in red.</p>
+<pre class="r"><code>library(ggalt)</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;ggalt&#39;:
+##   method                  from   
+##   grid.draw.absoluteGrob  ggplot2
+##   grobHeight.absoluteGrob ggplot2
+##   grobWidth.absoluteGrob  ggplot2
+##   grobX.absoluteGrob      ggplot2
+##   grobY.absoluteGrob      ggplot2</code></pre>
+<pre class="r"><code>ggplot() + geom_point(data=differential, aes(x=TeamScore, y=OpponentScore), color=&quot;grey&quot;) + geom_point(data=worstgames, aes(x=TeamScore, y=OpponentScore), color=&quot;red&quot;) + 
+  geom_encircle(data=worstgames, aes(x=TeamScore, y=OpponentScore), s_shape=.5, expand=.03, colour=&quot;red&quot;)</code></pre>
+<p><img src="http://gavinstruve.github.io/post/2021/03/29/trying-new-table-libraries/index_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+I added geom_encircle to bring more attention to our outlier from the worstgames dataset.</p>
+<pre class="r"><code>ggplot() + geom_point(data=differential, aes(x=TeamScore, y=OpponentScore), color=&quot;grey&quot;) + geom_point(data=worstgames, aes(x=TeamScore, y=OpponentScore), color=&quot;red&quot;) + 
+  geom_encircle(data=worstgames, aes(x=TeamScore, y=OpponentScore), s_shape=.5, expand=.03, colour=&quot;red&quot;) +
+  labs(title=&quot;Point differential of every game this season&quot;, subtitle=&quot;Only one game had a scoring margin of over 65 points.&quot;, x=&quot;Points Scored&quot;, y=&quot;Points Allowed&quot;) </code></pre>
+<p><img src="http://gavinstruve.github.io/post/2021/03/29/trying-new-table-libraries/index_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+Now I’ve added a title and subtitle using labs and changed the x and y axes labels.</p>
+<pre class="r"><code>ggplot() + geom_point(data=differential, aes(x=TeamScore, y=OpponentScore), color=&quot;grey&quot;) + geom_point(data=worstgames, aes(x=TeamScore, y=OpponentScore), color=&quot;red&quot;) + 
+  geom_encircle(data=worstgames, aes(x=TeamScore, y=OpponentScore), s_shape=.5, expand=.03, colour=&quot;red&quot;) +
+  labs(title=&quot;Point differential of every game this season&quot;, subtitle=&quot;Only one game had a scoring margin of over 65 points.&quot;, x=&quot;Points Scored&quot;, y=&quot;Points Allowed&quot;, caption=&quot;Source: Sports Reference | By Gavin Struve&quot;) + 
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;),
+    axis.title = element_text(size = 8), 
+    plot.subtitle = element_text(size=10), 
+    panel.grid.minor = element_blank()
+    )</code></pre>
+<p><img src="http://gavinstruve.github.io/post/2021/03/29/trying-new-table-libraries/index_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+Here I have added a minimal theme, bolded the title and added a source and credit line at the bottom.</p>
 
 </div>
 </main>
@@ -186,6 +331,9 @@ library(tidyverse)</code></pre>
   <script async src="//yihui.org/js/center-img.js"></script>
 
 
+
+<script src="//yihui.org/js/math-code.js"></script>
+<script async src="//mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
 
 
 
