@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title> Trying new table libraries  | Gavin Struve&#39;s Github Site</title>
+    
+    
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/fonts.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Trying new table libraries "/>
+<meta name="twitter:description" content="library(reactable) library(tidyverse) ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ── ## ✓ ggplot2 3.3.3 ✓ purrr 0.3.4 ## ✓ tibble 3.0.5 ✓ dplyr 1.0.3 ## ✓ tidyr 1.1.2 ✓ stringr 1.4.0 ## ✓ readr 1.4.0 ✓ forcats 0.5.0 ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ── ## x dplyr::filter() masks stats::filter() ## x dplyr::lag() masks stats::lag() badfball &lt;- read_csv(&quot;badfootballlogs20.csv&quot;) ## ## ── Column specification ──────────────────────────────────────────────────────── ## cols( ## .default = col_double(), ## Date = col_character(), ## HomeAway = col_character(), ## Opponent = col_character(), ## Result = col_character(), ## TeamFull = col_character(), ## TeamURL = col_character(), ## Team = col_character(), ## Conference = col_character() ## ) ## ℹ Use `spec()` for the full column specifications."/>
+
+
+  </head>
+
+  <body>
+
+    <nav class="menu">
+    <ul>
+      <li class="left">
+        <a href="/"><span>Gavin Struve&#39;s Github Site</span></a>
+      </li>
+      
+      <li>
+        <a href="/">Home</a>
+      </li>
+      
+      <li>
+        <a href="/about/">About</a>
+      </li>
+      
+      <li>
+        <a href="/sitemap/">Sitemap</a>
+      </li>
+      
+      <li id="menu-search">
+        <a href="/about/">About</a>
+      </li>
+      
+      <li>
+        <a href="https://github.com/gavinstruve">GitHub</a>
+      </li>
+      
+    </ul>
+    </nav>
+
+
+<div class="container single">
+<main>
+
+<div class="article-meta">
+<h1><span class="title">Trying new table libraries </span></h1>
+
+<h3 class="author">
+Gavin Struve
+</h3>
+
+<h3 class="date">2021-03-29</h3>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/r">R</a> 
+  
+  
+  
+  Tags: <a href="/tags/tutorial">Tutorial</a> 
+  
+  
+</p>
+</div>
+
+<div class="article">
+
+<script src="http://gavinstruve.github.io/post/2021/03/29/trying-new-table-libraries/index_files/header-attrs/header-attrs.js"></script>
+
+
+<pre class="r"><code>library(reactable)
+library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.0.5     ✓ dplyr   1.0.3
+## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>badfball &lt;- read_csv(&quot;badfootballlogs20.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   Date = col_character(),
+##   HomeAway = col_character(),
+##   Opponent = col_character(),
+##   Result = col_character(),
+##   TeamFull = col_character(),
+##   TeamURL = col_character(),
+##   Team = col_character(),
+##   Conference = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+
+</div>
+</main>
+
+<section class="appendix">
+
+
+<div>
+  <div class="side side-left"><h3>Author's bio</h3></div>
+  <div>
+
+
+
+
+
+
+</div>
+</div>
+
+
+
+
+
+
+<div>
+  <div class="side side-left"><h3>Reuse</h3></div>
+  Text and figures are licensed under <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution CC BY 4.0</a>. The source code is licensed under MIT. The full source is available at <a href="https://github.com/yihui/hugo-prose">https://github.com/yihui/hugo-prose</a>.
+</div>
+
+
+
+<div>
+  <div class="side side-left"><h3>Suggest changes</h3></div>
+  
+  
+  
+    
+  
+  If you find any mistakes (including typos) or want to suggest changes,
+  please feel free to <a href="https://github.com/yihui/hugo-prose/edit/master/exampleSite/content/post/2021-03-29-trying-new-table-libraries/index.Rmd" id="edit-link">edit
+  the source file of this page</a> on Github and create a pull request.
+</div>
+
+
+
+
+<div>
+  <div class="side side-left"><h3>Citation</h3></div>
+  <p>For attribution, please cite this work as</p>
+  <pre><code class="no-highlight">Gavin Struve (2021). Trying new table libraries . Gavin Struve&#39;s Github Site. http://gavinstruve.github.io/post/2021/03/29/trying-new-table-libraries/</code></pre>
+  <p>BibTeX citation</p>
+  <pre><code class="no-highlight">@misc{
+  title = "Trying new table libraries ",
+  author = "Gavin Struve",
+  year = "2021",
+  journal = "Gavin Struve&#39;s Github Site",
+  note = "http://gavinstruve.github.io/post/2021/03/29/trying-new-table-libraries/"
+}</code></pre>
+</div>
+
+</section>
+
+
+
+<nav class="post-nav">
+  <span class="nav-next"></span>
+  &hercon;
+  <span class="nav-prev"></span>
+</nav>
+
+
+
+
+
+</div>
+
+
+  <footer>
+  <script async src="//yihui.org/js/center-img.js"></script>
+
+
+
+
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+
+  <div class="footer">
+  
+  <ul class="copyright">
+    <li>© <a href="https://en.wikipedia.org/wiki/Seneca_the_Younger">Lucius Annaeus Seneca</a> 4 BC &ndash; AD 65</li>
+  </ul>
+  
+  <ul>
+    
+    <li>
+      <a href="/404.html">Contact</a>
+    </li>
+    
+    <li class="optional">
+      <a href="/categories/">Categories</a>
+    </li>
+    
+    <li class="optional">
+      <a href="/tags/">Tags</a>
+    </li>
+    
+    <li id="menu-edit">
+      <a href="#">Suggest an edit</a>
+    </li>
+    
+    <li>
+      <a href="#">Back to top</a>
+    </li>
+    
+  </ul>
+  </div>
+  
+  </footer>
+  <script async src="/js/features.js" data-page-features="[null,[&#34;&#43;sidenotes&#34;],null]"></script>
+  </body>
+</html>
+

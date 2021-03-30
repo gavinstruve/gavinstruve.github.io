@@ -6,121 +6,40 @@
     <description>Recent content in Tags on Gavin Struve&#39;s Github Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 01 Dec 2020 21:13:14 -0500</lastBuildDate><atom:link href="http://gavinstruve.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 29 Mar 2021 21:15:00 -0300</lastBuildDate><atom:link href="http://gavinstruve.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>plot</title>
-      <link>http://gavinstruve.github.io/tags/plot/</link>
-      <pubDate>Tue, 01 Dec 2020 21:13:14 -0500</pubDate>
+      <title>data</title>
+      <link>http://gavinstruve.github.io/tags/data/</link>
+      <pubDate>Mon, 29 Mar 2021 21:15:00 -0300</pubDate>
       
-      <guid>http://gavinstruve.github.io/tags/plot/</guid>
+      <guid>http://gavinstruve.github.io/tags/data/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>R Markdown</title>
-      <link>http://gavinstruve.github.io/tags/r-markdown/</link>
-      <pubDate>Tue, 01 Dec 2020 21:13:14 -0500</pubDate>
+      <title>R</title>
+      <link>http://gavinstruve.github.io/tags/r/</link>
+      <pubDate>Mon, 29 Mar 2021 21:15:00 -0300</pubDate>
       
-      <guid>http://gavinstruve.github.io/tags/r-markdown/</guid>
+      <guid>http://gavinstruve.github.io/tags/r/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>regression</title>
-      <link>http://gavinstruve.github.io/tags/regression/</link>
-      <pubDate>Tue, 01 Dec 2020 21:13:14 -0500</pubDate>
+      <title>sports</title>
+      <link>http://gavinstruve.github.io/tags/sports/</link>
+      <pubDate>Mon, 29 Mar 2021 21:15:00 -0300</pubDate>
       
-      <guid>http://gavinstruve.github.io/tags/regression/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Death</title>
-      <link>http://gavinstruve.github.io/tags/death/</link>
-      <pubDate>Tue, 30 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://gavinstruve.github.io/tags/death/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Lucilius</title>
-      <link>http://gavinstruve.github.io/tags/lucilius/</link>
-      <pubDate>Tue, 30 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://gavinstruve.github.io/tags/lucilius/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Seneca</title>
-      <link>http://gavinstruve.github.io/tags/seneca/</link>
-      <pubDate>Tue, 30 Jul 2019 00:00:00 +0000</pubDate>
-      
-      <guid>http://gavinstruve.github.io/tags/seneca/</guid>
+      <guid>http://gavinstruve.github.io/tags/sports/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Tutorial</title>
       <link>http://gavinstruve.github.io/tags/tutorial/</link>
-      <pubDate>Wed, 14 Jun 2017 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 29 Mar 2021 00:00:00 +0000</pubDate>
       
       <guid>http://gavinstruve.github.io/tags/tutorial/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Poverty</title>
-      <link>http://gavinstruve.github.io/tags/poverty/</link>
-      <pubDate>Sun, 14 Feb 2016 00:00:00 +0000</pubDate>
-      
-      <guid>http://gavinstruve.github.io/tags/poverty/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Reading</title>
-      <link>http://gavinstruve.github.io/tags/reading/</link>
-      <pubDate>Sun, 14 Feb 2016 00:00:00 +0000</pubDate>
-      
-      <guid>http://gavinstruve.github.io/tags/reading/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Thinker</title>
-      <link>http://gavinstruve.github.io/tags/thinker/</link>
-      <pubDate>Sun, 14 Feb 2016 00:00:00 +0000</pubDate>
-      
-      <guid>http://gavinstruve.github.io/tags/thinker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Wealth</title>
-      <link>http://gavinstruve.github.io/tags/wealth/</link>
-      <pubDate>Sun, 14 Feb 2016 00:00:00 +0000</pubDate>
-      
-      <guid>http://gavinstruve.github.io/tags/wealth/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Nature</title>
-      <link>http://gavinstruve.github.io/tags/nature/</link>
-      <pubDate>Thu, 23 Jul 2015 00:00:00 +0000</pubDate>
-      
-      <guid>http://gavinstruve.github.io/tags/nature/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Time</title>
-      <link>http://gavinstruve.github.io/tags/time/</link>
-      <pubDate>Thu, 23 Jul 2015 00:00:00 +0000</pubDate>
-      
-      <guid>http://gavinstruve.github.io/tags/time/</guid>
       <description></description>
     </item>
     
