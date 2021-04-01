@@ -39,67 +39,6 @@
         <guid>http://gavinstruve.github.io/about/</guid>
         <description>
           &lt;p&gt;I&amp;rsquo;m a sophomore at the University of Nebraska-Lincoln graduating in the spring of 2023 with a double-major in sports journalism and advertising &amp;amp; public relations. I made this page for a course, SPMC 350 Sports Data Analysis &amp;amp; Visualization, to host my semester projects on. I&amp;rsquo;m a sports writer for the student newspaper, the Daily Nebraskan, predominantly covering basketball and distance running. I also have an interest in sports statistics, so I am hoping this class will provide an outlet and show me how to use it.&lt;/p&gt;
-&lt;/div&gt;
-&lt;h3 id=&#34;navigation-links&#34;&gt;Navigation links&lt;/h3&gt;
-&lt;h2 id=&#34;responsive-design&#34;&gt;Responsive design&lt;/h2&gt;
-&lt;h3 id=&#34;screen-size&#34;&gt;Screen size&lt;/h3&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;&lt;/th&gt;
-&lt;th&gt;Attribute \ width&lt;/th&gt;
-&lt;th&gt;650 - 800px&lt;/th&gt;
-&lt;th&gt;800 - 1280px&lt;/th&gt;
-&lt;th&gt;&amp;gt; 1280px&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;Menu&lt;/td&gt;
-&lt;td&gt;optional items&lt;/td&gt;
-&lt;td&gt;hidden&lt;/td&gt;
-&lt;td&gt;shown&lt;/td&gt;
-&lt;td&gt;&amp;lt;=&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Table of contents&lt;/td&gt;
-&lt;td&gt;position&lt;/td&gt;
-&lt;td&gt;=&amp;gt;&lt;/td&gt;
-&lt;td&gt;body / static&lt;/td&gt;
-&lt;td&gt;left margin / sticky&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Floats&lt;/td&gt;
-&lt;td&gt;position&lt;/td&gt;
-&lt;td&gt;=&amp;gt;&lt;/td&gt;
-&lt;td&gt;body / static&lt;/td&gt;
-&lt;td&gt;beside or overlapping body&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Sidenotes&lt;/td&gt;
-&lt;td&gt;position&lt;/td&gt;
-&lt;td&gt;=&amp;gt;&lt;/td&gt;
-&lt;td&gt;body / static&lt;/td&gt;
-&lt;td&gt;side&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;Home posts&lt;/td&gt;
-&lt;td&gt;layout&lt;/td&gt;
-&lt;td&gt;one column&lt;/td&gt;
-&lt;td&gt;two columns&lt;/td&gt;
-&lt;td&gt;&amp;lt;=&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;h3 id=&#34;dark-theme&#34;&gt;Dark theme&lt;/h3&gt;
-&lt;p&gt;This theme uses the
-&lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme&#34;&gt;&lt;code&gt;prefer-color-scheme&lt;/code&gt;&lt;/a&gt;
-CSS media feature to respond to the dark color theme of the system. If you
-change your system to the dark mode, the web pages will automatically switch to
-the dark mode.&lt;/p&gt;
-&lt;h2 id=&#34;custom-layouts&#34;&gt;Custom layouts&lt;/h2&gt;
-&lt;h2 id=&#34;todo&#34;&gt;TODO&lt;/h2&gt;
-&lt;p&gt;section anchors&lt;/p&gt;
 
         </description>
       </item>
