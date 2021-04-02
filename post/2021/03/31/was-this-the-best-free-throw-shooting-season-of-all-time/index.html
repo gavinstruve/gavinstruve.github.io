@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.81.0" />
+
+
+<title>Was this the best free throw shooting season of all time? - Gavin Struve&#39;s Github Site</title>
+<meta property="og:title" content="Was this the best free throw shooting season of all time? - Gavin Struve&#39;s Github Site">
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/%3cnil%3e"
+         width=""
+         height=""
+         alt="">
+  </a>
+
+  <ul class="nav-links">
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">9 min read</span>
+    
+
+    <h1 class="article-title">Was this the best free throw shooting season of all time?</h1>
+
+    
+    <span class="article-date">2021-03-31</span>
+    
+
+    <div class="article-content">
+      
+<script src="http://gavinstruve.github.io/post/2021/03/31/was-this-the-best-free-throw-shooting-season-of-all-time/index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>Oral Roberts missed out on making history on March 27 in its loss to Arkansas. And no I’m not talking about becoming the first 15 seed to reach the Elite 8. The Golden Eagles’ Cinderella run to the Sweet 16 was nothing short of spellbinding, but in the process, they missed out on toppling a 37-year old record. I’m talking about Harvard’s team free throw percentage record. During the 1983-84 season, the Crimson went 15-11…and shot 82.2% from the free throw line as a team, a mark that has stood for nearly four decades.</p>
+<p>Now, in the strangest season, Oral Roberts, a tiny evangelical school, was on the verge of breaking it. Had junior forward Francis Lacis made the front end of his pair of free throws in the final minute of the 2-point loss to Arkansas, Oral Roberts would have made 408 of its 496 free throws on the season, good for 82.3% and a new NCAA record. Instead, the 407 makes left the Golden Eagles at 82.1% on the season.</p>
+<p>In all, five teams shot above 80% and 20 teams shot at least 78%. In the 2019-20 season, no team topped 80%, and in 2018-19, two teams did but only six total shot hit 78%, per sports reference. This begs the question, is this the most historic free throw shooting season in college basketball despite no team breaking Harvard’s record?</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.0.5     ✓ dplyr   1.0.3
+## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(gt)</code></pre>
+<pre class="r"><code>ftfiveyr &lt;- read_csv(&quot;ftfiveyrs.csv&quot;) %&gt;% select(School, FT, FTA, FTPerc)</code></pre>
+<pre><code>## Warning: Missing column names filled in: &#39;X9&#39; [9], &#39;X10&#39; [10], &#39;X11&#39; [11],
+## &#39;X12&#39; [12], &#39;X13&#39; [13], &#39;X14&#39; [14], &#39;X15&#39; [15], &#39;X16&#39; [16], &#39;X17&#39; [17],
+## &#39;X18&#39; [18], &#39;X19&#39; [19], &#39;X20&#39; [20], &#39;X21&#39; [21], &#39;X22&#39; [22], &#39;X23&#39; [23],
+## &#39;X24&#39; [24], &#39;X25&#39; [25], &#39;X26&#39; [26], &#39;X27&#39; [27], &#39;X28&#39; [28], &#39;X29&#39; [29],
+## &#39;X30&#39; [30], &#39;X31&#39; [31]</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_logical(),
+##   School = col_character(),
+##   G = col_double(),
+##   W = col_double(),
+##   L = col_double(),
+##   WLPerc = col_double(),
+##   FT = col_double(),
+##   FTA = col_double(),
+##   FTPerc = col_double(),
+##   X29 = col_character(),
+##   X30 = col_character(),
+##   X31 = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>ftfiveyr</code></pre>
+<pre><code>## # A tibble: 27 x 4
+##    School                     FT   FTA FTPerc
+##    &lt;chr&gt;                   &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;
+##  1 2021 Oral Roberts         407   496  0.821
+##  2 2021 Colorado             438   535  0.819
+##  3 2021 Virginia             235   288  0.816
+##  4 2021 Detroit Mercy        262   326  0.804
+##  5 2021 Lafayette            226   281  0.804
+##  6 2020 North Dakota State   490   614  0.798
+##  7 2020 Kentucky             560   703  0.797
+##  8 2020 Pepperdine           506   639  0.792
+##  9 2020 Northeastern         366   463  0.79 
+## 10 2020 Western Kentucky     527   668  0.789
+## # … with 17 more rows</code></pre>
+<pre class="r"><code>topfiveyr &lt;- ftfiveyr %&gt;% top_n(10, wt = FTPerc) </code></pre>
+<pre class="r"><code>topfiveyr %&gt;% 
+  arrange(desc(FTPerc)) %&gt;%
+  gt() %&gt;% 
+  fmt_percent(
+    columns = 4,
+    decimals=1
+  ) %&gt;% 
+  cols_label(
+    School = &quot;School&quot;,
+    FT = &quot;Free Throws Made&quot;,
+    FTA = &quot;Free Throw Attempts&quot;,
+    FTPerc = &quot;Free Throw Percentage&quot;
+  ) %&gt;% 
+  tab_header(
+    title = &quot;Is this the best free throw shooting season in recent memory?&quot;,
+    subtitle = &quot;The marks of this year&#39;s top free throw shooting teams would indicate yes.&quot;
+  ) %&gt;% tab_style(
+    style = cell_text(color = &quot;black&quot;, weight = &quot;bold&quot;, align = &quot;left&quot;),
+    locations = cells_title(&quot;title&quot;)
+  ) %&gt;% tab_style(
+    style = cell_text(color = &quot;black&quot;, align = &quot;left&quot;),
+    locations = cells_title(&quot;subtitle&quot;)
+  ) %&gt;%
+  tab_source_note(
+    source_note = &quot;By Gavin Struve&quot;
+  ) %&gt;%
+  tab_source_note(
+    source_note = md(&quot;Source: [Sports Reference](https://www.sports-reference.com/cbb/seasons/2021-school-stats.html)&quot;)
+  ) %&gt;% tab_style(
+    style = cell_text(color = &quot;black&quot;, weight = &quot;bold&quot;),
+    locations = cells_body(
+      columns = vars(School)
+    )
+  )  %&gt;%
+  opt_row_striping() %&gt;% 
+  opt_table_lines(&quot;none&quot;) %&gt;% 
+  tab_style(
+    style = cell_borders(sides = c(&quot;top&quot;, &quot;bottom&quot;), 
+                         color = &quot;grey&quot;, weight = px(1)),
+    locations = cells_column_labels(everything())
+  ) </code></pre>
+<pre><code>## Warning: The `.dots` argument of `group_by()` is deprecated as of dplyr 1.0.0.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#dpbjndqvda .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: none;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#dpbjndqvda .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#dpbjndqvda .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#dpbjndqvda .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#dpbjndqvda .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dpbjndqvda .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#dpbjndqvda .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#dpbjndqvda .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#dpbjndqvda .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#dpbjndqvda .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#dpbjndqvda .gt_column_spanner {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#dpbjndqvda .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#dpbjndqvda .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#dpbjndqvda .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#dpbjndqvda .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#dpbjndqvda .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: none;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#dpbjndqvda .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#dpbjndqvda .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dpbjndqvda .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#dpbjndqvda .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#dpbjndqvda .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: none;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#dpbjndqvda .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#dpbjndqvda .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#dpbjndqvda .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#dpbjndqvda .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#dpbjndqvda .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#dpbjndqvda .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#dpbjndqvda .gt_left {
+  text-align: left;
+}
+
+#dpbjndqvda .gt_center {
+  text-align: center;
+}
+
+#dpbjndqvda .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#dpbjndqvda .gt_font_normal {
+  font-weight: normal;
+}
+
+#dpbjndqvda .gt_font_bold {
+  font-weight: bold;
+}
+
+#dpbjndqvda .gt_font_italic {
+  font-style: italic;
+}
+
+#dpbjndqvda .gt_super {
+  font-size: 65%;
+}
+
+#dpbjndqvda .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="dpbjndqvda" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="4" class="gt_heading gt_title gt_font_normal" style="color: black; text-align: left; font-weight: bold;">Is this the best free throw shooting season in recent memory?</th>
+    </tr>
+    <tr>
+      <th colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: black; text-align: left;">The marks of this year's top free throw shooting teams would indicate yes.</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 1px; border-top-style: solid; border-top-color: grey; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: grey;">School</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 1px; border-top-style: solid; border-top-color: grey; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: grey;">Free Throws Made</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 1px; border-top-style: solid; border-top-color: grey; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: grey;">Free Throw Attempts</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 1px; border-top-style: solid; border-top-color: grey; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: grey;">Free Throw Percentage</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_left" style="color: black; font-weight: bold;">2021 Oral Roberts</td>
+      <td class="gt_row gt_right">407</td>
+      <td class="gt_row gt_right">496</td>
+      <td class="gt_row gt_right">82.1&percnt;</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left gt_striped" style="color: black; font-weight: bold;">2021 Colorado</td>
+      <td class="gt_row gt_right gt_striped">438</td>
+      <td class="gt_row gt_right gt_striped">535</td>
+      <td class="gt_row gt_right gt_striped">81.9&percnt;</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left" style="color: black; font-weight: bold;">2021 Virginia</td>
+      <td class="gt_row gt_right">235</td>
+      <td class="gt_row gt_right">288</td>
+      <td class="gt_row gt_right">81.6&percnt;</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left gt_striped" style="color: black; font-weight: bold;">2019 Incarnate Word</td>
+      <td class="gt_row gt_right gt_striped">448</td>
+      <td class="gt_row gt_right gt_striped">553</td>
+      <td class="gt_row gt_right gt_striped">81.0&percnt;</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left" style="color: black; font-weight: bold;">2018 William &amp; Mary</td>
+      <td class="gt_row gt_right">479</td>
+      <td class="gt_row gt_right">591</td>
+      <td class="gt_row gt_right">81.0&percnt;</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left gt_striped" style="color: black; font-weight: bold;">2018 Central Michigan</td>
+      <td class="gt_row gt_right gt_striped">573</td>
+      <td class="gt_row gt_right gt_striped">711</td>
+      <td class="gt_row gt_right gt_striped">80.6&percnt;</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left" style="color: black; font-weight: bold;">2018 Marquette</td>
+      <td class="gt_row gt_right">483</td>
+      <td class="gt_row gt_right">600</td>
+      <td class="gt_row gt_right">80.5&percnt;</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left gt_striped" style="color: black; font-weight: bold;">2021 Detroit Mercy</td>
+      <td class="gt_row gt_right gt_striped">262</td>
+      <td class="gt_row gt_right gt_striped">326</td>
+      <td class="gt_row gt_right gt_striped">80.4&percnt;</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left" style="color: black; font-weight: bold;">2021 Lafayette</td>
+      <td class="gt_row gt_right">226</td>
+      <td class="gt_row gt_right">281</td>
+      <td class="gt_row gt_right">80.4&percnt;</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left gt_striped" style="color: black; font-weight: bold;">2019 Hofstra</td>
+      <td class="gt_row gt_right gt_striped">615</td>
+      <td class="gt_row gt_right gt_striped">767</td>
+      <td class="gt_row gt_right gt_striped">80.2&percnt;</td>
+    </tr>
+  </tbody>
+  <tfoot class="gt_sourcenotes">
+    <tr>
+      <td class="gt_sourcenote" colspan="4">By Gavin Struve</td>
+    </tr>
+    <tr>
+      <td class="gt_sourcenote" colspan="4">Source: <a href="https://www.sports-reference.com/cbb/seasons/2021-school-stats.html">Sports Reference</a></td>
+    </tr>
+  </tfoot>
+  
+</table></div>
+<p>CHANGE FT% TO AN ACTUAL PERCENTAGE NOT A DECIMAL</p>
+<p>Perhaps it should come as no surprise that so many teams launched record-breaking attempts this season given that there were no fans. But how much better do teams shoot from the free throw line with no fans present?</p>
+<p>Use NBA example then maybe a step chart showing free throw shooting nationwide this season compared to past years</p>
+<pre class="r"><code>fts &lt;- read_csv(&quot;cbbrfr.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   School = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>fts</code></pre>
+<pre><code>## # A tibble: 347 x 32
+##    School Games TotalWins TotalLosses WLPerc    SRS    SOS ConfWins ConfLosses
+##    &lt;chr&gt;  &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+##  1 Abile…    29        24           5  0.828   6.24  -6.4        13          2
+##  2 Air F…    25         5          20  0.2   -12.9    0.27        3         17
+##  3 Akron     23        15           8  0.652   1.86  -1.95       12          6
+##  4 Alaba…    15         6           9  0.4   -18.9  -15.0         4          9
+##  5 Alaba…    29        22           7  0.759   5.81  -3.82       13          5
+##  6 Alaba…    18         4          14  0.222 -24.3  -17.0         4         14
+##  7 Alaba…    33        26           7  0.788  19.6    9.99       16          2
+##  8 Alban…    16         7           9  0.438  -4.55  -5.24        6          6
+##  9 Alcor…    19         6          13  0.316 -19.6  -10.1         6          7
+## 10 Ameri…    10         4           6  0.4    -6.32  -1.82        4          5
+## # … with 337 more rows, and 23 more variables: HomeWins &lt;dbl&gt;,
+## #   HomeLosses &lt;dbl&gt;, RoadWins &lt;dbl&gt;, RoadLosses &lt;dbl&gt;, TeamPts &lt;dbl&gt;,
+## #   OppPts &lt;dbl&gt;, TotalMins &lt;dbl&gt;, TotalFG &lt;dbl&gt;, TotalFGA &lt;dbl&gt;, FGPerc &lt;dbl&gt;,
+## #   Total3P &lt;dbl&gt;, Total3PA &lt;dbl&gt;, `3PPerc` &lt;dbl&gt;, TotalFT &lt;dbl&gt;,
+## #   TotalFTA &lt;dbl&gt;, FTPerc &lt;dbl&gt;, TotalOReb &lt;dbl&gt;, TotalReb &lt;dbl&gt;,
+## #   TotalAst &lt;dbl&gt;, TotalStl &lt;dbl&gt;, TotalBlk &lt;dbl&gt;, TotalTOV &lt;dbl&gt;,
+## #   TotalFouls &lt;dbl&gt;</code></pre>
+<p>This the updated dataframe with all teams’ game logs through the Elite 8 this season.</p>
+<pre class="r"><code>ggplot() + geom_point(data=fts, aes(x=FTPerc, y=WLPerc))</code></pre>
+<p><img src="http://gavinstruve.github.io/post/2021/03/31/was-this-the-best-free-throw-shooting-season-of-all-time/index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js//highlight.min.js"></script>
+
+
+
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+
