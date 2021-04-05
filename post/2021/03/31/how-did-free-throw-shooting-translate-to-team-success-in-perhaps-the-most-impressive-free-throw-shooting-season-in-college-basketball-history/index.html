@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.81.0" />
+
+
+<title>How did free throw shooting translate to team success in perhaps the most impressive free throw shooting season in college basketball history? - Gavin Struve&#39;s Github Site</title>
+<meta property="og:title" content="How did free throw shooting translate to team success in perhaps the most impressive free throw shooting season in college basketball history? - Gavin Struve&#39;s Github Site">
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/%3cnil%3e"
+         width=""
+         height=""
+         alt="">
+  </a>
+
+  <ul class="nav-links">
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">14 min read</span>
+    
+
+    <h1 class="article-title">How did free throw shooting translate to team success in perhaps the most impressive free throw shooting season in college basketball history?</h1>
+
+    
+    <span class="article-date">2021-03-31</span>
+    
+
+    <div class="article-content">
+      
+<script src="http://gavinstruve.github.io/post/2021/03/31/how-did-free-throw-shooting-translate-to-team-success-in-perhaps-the-most-impressive-free-throw-shooting-season-in-college-basketball-history/index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>Oral Roberts missed out on making history on March 27 in its loss to Arkansas. And no I’m not talking about becoming the first 15 seed to reach the men’s NCAA Tournament’s Elite 8. The Golden Eagles’ Cinderella run to the Sweet 16 was nothing short of spellbinding, but in the process, they missed out on toppling a 37-year old record. I’m talking about Harvard’s team free throw percentage record. During the 1983-84 season, the Crimson went 15-11…and shot 82.2% from the free throw line as a team, a mark that has stood for nearly four decades.</p>
+<p>Now, in the strangest of seasons, Oral Roberts, a tiny evangelical school, was on the verge of breaking it. Had junior forward Francis Lacis made the front end of his pair of free throws in the final minute of the 2-point loss to Arkansas, Oral Roberts would have made 408 of its 496 free throws on the season, good for an 82.3% rate and a new NCAA record. Instead, the 407 makes left the Golden Eagles at 82.1% on the season.</p>
+<p>In all, five teams shot above 80% and 20 teams shot at least 78%. In the 2019-20 season, no team topped 80%, and in 2018-19, two teams did but only six total shot hit 78%, per sports reference. This begs the question, is this the most impressive free throw shooting season in college basketball history despite no team breaking Harvard’s record?</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──</code></pre>
+<pre><code>## ✓ ggplot2 3.3.3     ✓ purrr   0.3.4
+## ✓ tibble  3.0.5     ✓ dplyr   1.0.3
+## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.0</code></pre>
+<pre><code>## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()</code></pre>
+<pre class="r"><code>library(gt)
+library(ggrepel)
+library(waffle)
+library(ggalt)</code></pre>
+<pre><code>## Registered S3 methods overwritten by &#39;ggalt&#39;:
+##   method                  from   
+##   grid.draw.absoluteGrob  ggplot2
+##   grobHeight.absoluteGrob ggplot2
+##   grobWidth.absoluteGrob  ggplot2
+##   grobX.absoluteGrob      ggplot2
+##   grobY.absoluteGrob      ggplot2</code></pre>
+<pre class="r"><code>library(ggplot2)</code></pre>
+<pre class="r"><code>ftfiveyr &lt;- read_csv(&quot;ftfiveyrs.csv&quot;) %&gt;% select(School, FT, FTA, FTPerc)</code></pre>
+<pre><code>## Warning: Missing column names filled in: &#39;X9&#39; [9], &#39;X10&#39; [10], &#39;X11&#39; [11],
+## &#39;X12&#39; [12], &#39;X13&#39; [13], &#39;X14&#39; [14], &#39;X15&#39; [15], &#39;X16&#39; [16], &#39;X17&#39; [17],
+## &#39;X18&#39; [18], &#39;X19&#39; [19], &#39;X20&#39; [20], &#39;X21&#39; [21], &#39;X22&#39; [22], &#39;X23&#39; [23],
+## &#39;X24&#39; [24], &#39;X25&#39; [25], &#39;X26&#39; [26], &#39;X27&#39; [27], &#39;X28&#39; [28], &#39;X29&#39; [29],
+## &#39;X30&#39; [30], &#39;X31&#39; [31]</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_logical(),
+##   School = col_character(),
+##   G = col_double(),
+##   W = col_double(),
+##   L = col_double(),
+##   WLPerc = col_double(),
+##   FT = col_double(),
+##   FTA = col_double(),
+##   FTPerc = col_double(),
+##   X29 = col_character(),
+##   X30 = col_character(),
+##   X31 = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<p>The first dataset I’m going to use is one I made that has the top five free throw shooting teams by percentage from each of the last five years.</p>
+<pre class="r"><code>topfiveyr &lt;- ftfiveyr %&gt;% top_n(10, wt = FTPerc) </code></pre>
+<p>I’m going to filter this into a new dataframe that takes the top 10 of the top five from last five years dataset.</p>
+<pre class="r"><code>topfiveyr %&gt;% 
+  arrange(desc(FTPerc)) %&gt;%
+  gt() %&gt;% 
+  fmt_percent(
+    columns = 4,
+    decimals=1
+  ) %&gt;% 
+  cols_label(
+    School = &quot;School&quot;,
+    FT = &quot;Free Throws Made&quot;,
+    FTA = &quot;Free Throw Attempts&quot;,
+    FTPerc = &quot;Free Throw Percentage&quot;
+  ) %&gt;% 
+  tab_header(
+    title = &quot;Is this the best free throw shooting season in recent memory?&quot;,
+    subtitle = &quot;The marks of this year&#39;s top free throw shooting teams would indicate yes.&quot;
+  ) %&gt;% tab_style(
+    style = cell_text(color = &quot;black&quot;, weight = &quot;bold&quot;, align = &quot;left&quot;),
+    locations = cells_title(&quot;title&quot;)
+  ) %&gt;% tab_style(
+    style = cell_text(color = &quot;black&quot;, align = &quot;left&quot;),
+    locations = cells_title(&quot;subtitle&quot;)
+  ) %&gt;%
+  tab_source_note(
+    source_note = &quot;By Gavin Struve&quot;
+  ) %&gt;%
+  tab_source_note(
+    source_note = md(&quot;Source: [Sports Reference](https://www.sports-reference.com/cbb/seasons/2021-school-stats.html)&quot;)
+  ) %&gt;% tab_style(
+    style = cell_text(color = &quot;black&quot;, weight = &quot;bold&quot;),
+    locations = cells_body(
+      columns = vars(School)
+    )
+  )  %&gt;%
+  opt_row_striping() %&gt;% 
+  opt_table_lines(&quot;none&quot;) %&gt;% 
+  tab_style(
+    style = cell_borders(sides = c(&quot;top&quot;, &quot;bottom&quot;), 
+    color = &quot;grey&quot;, weight = px(1)),
+    locations = cells_column_labels(everything())
+  ) </code></pre>
+<pre><code>## Warning: The `.dots` argument of `group_by()` is deprecated as of dplyr 1.0.0.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_warnings()` to see where this warning was generated.</code></pre>
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#tubddklzet .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: none;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#tubddklzet .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#tubddklzet .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#tubddklzet .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 4px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#tubddklzet .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tubddklzet .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#tubddklzet .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#tubddklzet .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#tubddklzet .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#tubddklzet .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#tubddklzet .gt_column_spanner {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#tubddklzet .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#tubddklzet .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#tubddklzet .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#tubddklzet .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#tubddklzet .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: none;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#tubddklzet .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#tubddklzet .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tubddklzet .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#tubddklzet .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#tubddklzet .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: none;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#tubddklzet .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#tubddklzet .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#tubddklzet .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#tubddklzet .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#tubddklzet .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#tubddklzet .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#tubddklzet .gt_left {
+  text-align: left;
+}
+
+#tubddklzet .gt_center {
+  text-align: center;
+}
+
+#tubddklzet .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#tubddklzet .gt_font_normal {
+  font-weight: normal;
+}
+
+#tubddklzet .gt_font_bold {
+  font-weight: bold;
+}
+
+#tubddklzet .gt_font_italic {
+  font-style: italic;
+}
+
+#tubddklzet .gt_super {
+  font-size: 65%;
+}
+
+#tubddklzet .gt_footnote_marks {
+  font-style: italic;
+  font-size: 65%;
+}
+</style>
+<div id="tubddklzet" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;"><table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="4" class="gt_heading gt_title gt_font_normal" style="color: black; text-align: left; font-weight: bold;">Is this the best free throw shooting season in recent memory?</th>
+    </tr>
+    <tr>
+      <th colspan="4" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: black; text-align: left;">The marks of this year's top free throw shooting teams would indicate yes.</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-top-width: 1px; border-top-style: solid; border-top-color: grey; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: grey;">School</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 1px; border-top-style: solid; border-top-color: grey; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: grey;">Free Throws Made</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 1px; border-top-style: solid; border-top-color: grey; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: grey;">Free Throw Attempts</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="border-top-width: 1px; border-top-style: solid; border-top-color: grey; border-bottom-width: 1px; border-bottom-style: solid; border-bottom-color: grey;">Free Throw Percentage</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr>
+      <td class="gt_row gt_left" style="color: black; font-weight: bold;">2021 Oral Roberts</td>
+      <td class="gt_row gt_right">407</td>
+      <td class="gt_row gt_right">496</td>
+      <td class="gt_row gt_right">82.1&percnt;</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left gt_striped" style="color: black; font-weight: bold;">2021 Colorado</td>
+      <td class="gt_row gt_right gt_striped">438</td>
+      <td class="gt_row gt_right gt_striped">535</td>
+      <td class="gt_row gt_right gt_striped">81.9&percnt;</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left" style="color: black; font-weight: bold;">2021 Virginia</td>
+      <td class="gt_row gt_right">235</td>
+      <td class="gt_row gt_right">288</td>
+      <td class="gt_row gt_right">81.6&percnt;</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left gt_striped" style="color: black; font-weight: bold;">2019 Incarnate Word</td>
+      <td class="gt_row gt_right gt_striped">448</td>
+      <td class="gt_row gt_right gt_striped">553</td>
+      <td class="gt_row gt_right gt_striped">81.0&percnt;</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left" style="color: black; font-weight: bold;">2018 William &amp; Mary</td>
+      <td class="gt_row gt_right">479</td>
+      <td class="gt_row gt_right">591</td>
+      <td class="gt_row gt_right">81.0&percnt;</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left gt_striped" style="color: black; font-weight: bold;">2018 Central Michigan</td>
+      <td class="gt_row gt_right gt_striped">573</td>
+      <td class="gt_row gt_right gt_striped">711</td>
+      <td class="gt_row gt_right gt_striped">80.6&percnt;</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left" style="color: black; font-weight: bold;">2018 Marquette</td>
+      <td class="gt_row gt_right">483</td>
+      <td class="gt_row gt_right">600</td>
+      <td class="gt_row gt_right">80.5&percnt;</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left gt_striped" style="color: black; font-weight: bold;">2021 Detroit Mercy</td>
+      <td class="gt_row gt_right gt_striped">262</td>
+      <td class="gt_row gt_right gt_striped">326</td>
+      <td class="gt_row gt_right gt_striped">80.4&percnt;</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left" style="color: black; font-weight: bold;">2021 Lafayette</td>
+      <td class="gt_row gt_right">226</td>
+      <td class="gt_row gt_right">281</td>
+      <td class="gt_row gt_right">80.4&percnt;</td>
+    </tr>
+    <tr>
+      <td class="gt_row gt_left gt_striped" style="color: black; font-weight: bold;">2019 Hofstra</td>
+      <td class="gt_row gt_right gt_striped">615</td>
+      <td class="gt_row gt_right gt_striped">767</td>
+      <td class="gt_row gt_right gt_striped">80.2&percnt;</td>
+    </tr>
+  </tbody>
+  <tfoot class="gt_sourcenotes">
+    <tr>
+      <td class="gt_sourcenote" colspan="4">By Gavin Struve</td>
+    </tr>
+    <tr>
+      <td class="gt_sourcenote" colspan="4">Source: <a href="https://www.sports-reference.com/cbb/seasons/2021-school-stats.html">Sports Reference</a></td>
+    </tr>
+  </tfoot>
+  
+</table></div>
+<p>This table provides a look at the top ten free throw shooting teams from the past five seasons. As you can see the top three are all from this past season, and two other teams from this year are in the top ten. Each of the top three teams in percentage (Oral Roberts, Colorado and Virginia) experienced a considerable amount of success this season. The Golden Eagles made a surprise tournament run, Colorado won a game in the NCAA Tournament and finished in the top 10 of Kenpom.com’s advanced analytics rankings, and although Virginia was upset in the first round, the Cavaliers won the ACC regular season title and entered the tournament as a No. 4 seed.</p>
+<p>With these three teams as our frontrunners, it seems clear there is some correlation between free throw percentage and team success. Let’s find out if this is true.</p>
+<pre class="r"><code>fts &lt;- read_csv(&quot;cbbrfr.csv&quot;)</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   .default = col_double(),
+##   School = col_character()
+## )
+## ℹ Use `spec()` for the full column specifications.</code></pre>
+<pre class="r"><code>topftteams &lt;- fts %&gt;% filter(FTPerc &gt; 0.78)</code></pre>
+<p>I’m making a dataframe called topftteams for teams who shot above 78% from the free throw line this season.</p>
+<pre class="r"><code>avgteamft &lt;- fts %&gt;% ungroup() %&gt;% summarise(avgftpts = mean(TotalFT/Games), avgpts = mean(TeamPts/Games), avgfta = mean(TotalFTA/Games))
+
+topteamft &lt;- topftteams %&gt;% ungroup() %&gt;% summarise(avgftpts = mean(TotalFT/Games), avgpts = mean(TeamPts/Games), avgfta = mean(TotalFTA/Games))</code></pre>
+<p>Here I made two new datasets to show the average free throws and points for both the average team and the top free throw shooting teams. This will help me make a waffle chart.</p>
+<pre class="r"><code>avgteamft</code></pre>
+<pre><code>## # A tibble: 1 x 3
+##   avgftpts avgpts avgfta
+##      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1     12.9   71.4   18.2</code></pre>
+<pre class="r"><code>topteamft</code></pre>
+<pre><code>## # A tibble: 1 x 3
+##   avgftpts avgpts avgfta
+##      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1     13.7   74.3   17.3</code></pre>
+<p>This creates average team free throws made per game, free throws attempted per game, and points per game for the top free throw shooting teams (teams above 78%) and for the average free throw shooting teams above.</p>
+<p>We can see the top free throw shooting teams both averaged more points and more made free throws than the average teams.</p>
+<pre class="r"><code>bestftteams &lt;- c(&quot;Free Throws&quot;=13.7, &quot;Total Points&quot;=74.2)
+avgftteams &lt;- c(&quot;Free Throws&quot;=12.9, &quot;Total Points&quot;=71.4)</code></pre>
+<p>Here I made new datasets to prepare for a waffle chart using the per game numbers from above.</p>
+<pre class="r"><code>iron(
+ waffle(bestftteams, 
+        rows = 10, 
+        title=&quot;Top Free Throw Shooting Teams&quot;, 
+        xlab=&quot;1 square = 1 point&quot;, 
+        colors = c(&quot;black&quot;, &quot;blue&quot;)
+        ),
+ waffle(avgftteams, 
+        rows = 10, 
+        title=&quot;Average Free Throw Shooting Teams&quot;, 
+        xlab=&quot;1 square = 1 point&quot;, 
+        colors = c(&quot;black&quot;, &quot;blue&quot;)
+        ) 
+)</code></pre>
+<p><img src="http://gavinstruve.github.io/post/2021/03/31/how-did-free-throw-shooting-translate-to-team-success-in-perhaps-the-most-impressive-free-throw-shooting-season-in-college-basketball-history/index_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+This waffle chart offers a breakdown of average points and free throws per game for an average team versus a top free-throw shooting team. We can see teams that shoot free throws well score more total points. They may only be likely to make 0.8 more free throws per game, as we saw when we took averages above, but they average one less attempt per game, which is probably just a relatively random outcome. When the top free throw shooting teams are not only making more free throws per game but scoring considerably more points per game, it’s a good indicator that they’re more likely to win. But does the extra points correlate directly to wins?</p>
+<pre class="r"><code>ggplot() + 
+  geom_dumbbell(
+    data=topftteams, 
+    aes(y=School, x=TeamPts, xend=OppPts),
+    colour = &quot;black&quot;,
+    colour_x = &quot;blue&quot;,
+    colour_xend = &quot;red&quot;)+
+   labs(
+    x=&quot;Total Points Scored&quot;, 
+    y=&quot;Total Points Allowed&quot;, 
+    title=&quot;Do top free throw shooting teams outscore opponents?&quot;,
+    subtitle=&quot;The nation&#39;s top teams in free throw percentage are far more likely than \n not to boast a positive point differential.&quot;,
+    caption=&quot;Source: Sports Reference | By Gavin Struve&quot;) +
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;),
+    axis.title = element_text(size = 10),
+   )</code></pre>
+<p><img src="http://gavinstruve.github.io/post/2021/03/31/how-did-free-throw-shooting-translate-to-team-success-in-perhaps-the-most-impressive-free-throw-shooting-season-in-college-basketball-history/index_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+For a more literal example, this dumbbell chart shows the amount of points scored and allowed by the top free throw shooting teams over the course of this past season. The blue end of the dumbbell shows how many total points the team scored for the season, and the red end shows the amount of points allowed. Point differential is not a perfect gauge of how many games a team won, but there’s a close correlation. Outscoring an opponent means you beat them, it’s how much you beat or lose to them by that can skew point differential.</p>
+<p>This is the updated dataframe with all teams’ game logs through the Elite 8 this season. I’m going to use it to show how all teams compared in shooting from the line this year.</p>
+<pre class="r"><code>topfts &lt;- fts %&gt;% filter(FTPerc &gt; 0.80)</code></pre>
+<p>Here I’m making another dataframe of the top free throw shooting teams to differentiate them on the chart I’m creating. I’m using 80% free throw shooting as the cutoff for this exercise.</p>
+<pre class="r"><code>averages &lt;- fts %&gt;% ungroup() %&gt;% summarise(avgfta = mean(TotalFTA), avgftpct = mean(FTPerc), avgwinperc = mean(WLPerc))</code></pre>
+<pre class="r"><code>averages</code></pre>
+<pre><code>## # A tibble: 1 x 3
+##   avgfta avgftpct avgwinperc
+##    &lt;dbl&gt;    &lt;dbl&gt;      &lt;dbl&gt;
+## 1   432.    0.708      0.506</code></pre>
+<p>This gives us the average free throw attempts over a season as well as average free throw percentage and average win percentage. The latter two will be used for setting the x and y axes on the chart I’m making.</p>
+<pre class="r"><code>ggplot() + 
+  geom_point(data=fts, aes(x=FTPerc, y=WLPerc)) +
+  geom_smooth(data=fts, aes(x=FTPerc, y=WLPerc), method=&quot;lm&quot;) +
+  geom_point(data=topfts, aes(x=FTPerc, y=WLPerc), color=&quot;red&quot;)+
+      geom_hline(yintercept=0.505, color=&quot;dark grey&quot;) + 
+  geom_vline(xintercept=0.708, color=&quot;dark grey&quot;) + 
+  geom_text_repel(data=topfts, aes(x=FTPerc, y=WLPerc, label=School)) +
+  labs(x=&quot;Free Throw Percentage&quot;, y=&quot;Win-Loss Percentage&quot;, title=&quot;How much does free throw shooting affect game outcome?&quot;, subtitle=&quot;The top free throw shooting teams would indicate there is some correlation.&quot;, caption=&quot;Source: Sports Reference | By Gavin Struve&quot;) +
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(size = 16, face = &quot;bold&quot;),
+    axis.title = element_text(size = 10),
+    axis.text = element_text(size = 7),
+    axis.ticks = element_blank(),
+    panel.grid.minor = element_blank(),
+    panel.grid.major.x = element_blank()
+  )</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="http://gavinstruve.github.io/post/2021/03/31/how-did-free-throw-shooting-translate-to-team-success-in-perhaps-the-most-impressive-free-throw-shooting-season-in-college-basketball-history/index_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+This scatter plot shows the correlation between free throw percentage and winning percentage which you can see is a positive as the line slopes up. I labeled the top five free throw shooting teams from this season and made their dots red to show where they finished for winning percentage. All five won over half of their games, and Colorado and Virginia won the most of the five while playing in power conferences.</p>
+<pre class="r"><code>fit &lt;- lm(WLPerc ~ FTPerc, data = fts)
+summary(fit)</code></pre>
+<pre><code>## 
+## Call:
+## lm(formula = WLPerc ~ FTPerc, data = fts)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.51886 -0.12117  0.00344  0.11580  0.45989 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -0.4055     0.1605  -2.527    0.012 *  
+## FTPerc        1.2866     0.2262   5.687 2.75e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.1744 on 345 degrees of freedom
+## Multiple R-squared:  0.08572,    Adjusted R-squared:  0.08307 
+## F-statistic: 32.35 on 1 and 345 DF,  p-value: 2.752e-08</code></pre>
+<p>This linear model provides more context regarding the relationship between free throw percentage and win percentage. The r-squared at the bottom is 0.08307 which indicates free throw percentage predicts about 8.3% of the variance in win percentage. The p-value below that is 2.752e-08 which is far below the standard of 0.05 meaning this is statistically significant and not random.</p>
+<p>What this all implies is that there is a connection between free throw percentage and win percentage, and free throw shooting isn’t arbitrary, but how well a team shoots from the charity stripe is not a great indicator of team success. It’s not necessarily a coincidence that the top three teams in free throw percentage were nationally relevant teams that made the tournament, but their shooting from the line didn’t help them all that much. The top free throw shooting teams score more than average and win more than average, but free throw percentage does not have as large of an influence nationwide on win percentage. In short, good free throw shooting teams are more likely to win, but it doesn’t have a huge bearing on team success.</p>
+<p>Even if Oral Roberts had made one more shot and taken down ’84 Harvard’s record, it may still be difficult to say the Golden Eagles really were better from the line. After all, they took 496 free throws, about three-quarters of the Crimson’s total of 651. Additionally, it’s extremely hard to quantify how much of the nationwide success was an effect of little to no fans due to COVID-19. For that reason, there’s no clear answer as to whether this was the most impressive free throw shooting season in college basketball history. Fan advantage or not, it does seem unlikely we’ll see this many college teams shoot this well anytime in the future.</p>
+<p>While it appears that this may have been the season where free throw shooting was of utmost importance as percentages soared and the top teams from the line had measurable overall success, it remains clear that free throw shooting is just a small part of the equation for winning.</p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js//highlight.min.js"></script>
+
+
+
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+
