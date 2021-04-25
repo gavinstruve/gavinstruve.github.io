@@ -1,36 +1,99 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on A Hugo website</title>
-    <link>/tags/</link>
-    <description>Recent content in Tags on A Hugo website</description>
+    <title>Tags on Gavin Struve&#39;s Github Site</title>
+    <link>http://gavinstruve.github.io/tags/</link>
+    <description>Recent content in Tags on Gavin Struve&#39;s Github Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 31 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://gavinstruve.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>data</title>
-      <link>/tags/data/</link>
-      <pubDate>Wed, 31 Mar 2021 00:00:00 +0000</pubDate>
+      <link>http://gavinstruve.github.io/tags/data/</link>
+      <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>/tags/data/</guid>
+      <guid>http://gavinstruve.github.io/tags/data/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
-      <link>/tags/r/</link>
-      <pubDate>Wed, 31 Mar 2021 00:00:00 +0000</pubDate>
+      <link>http://gavinstruve.github.io/tags/r/</link>
+      <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>/tags/r/</guid>
+      <guid>http://gavinstruve.github.io/tags/r/</guid>
       <description></description>
     </item>
     
     <item>
       <title>sports</title>
-      <link>/tags/sports/</link>
-      <pubDate>Wed, 31 Mar 2021 00:00:00 +0000</pubDate>
+      <link>http://gavinstruve.github.io/tags/sports/</link>
+      <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
       
-      <guid>/tags/sports/</guid>
+      <guid>http://gavinstruve.github.io/tags/sports/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Tutorial</title>
+      <link>http://gavinstruve.github.io/tags/tutorial/</link>
+      <pubDate>Mon, 29 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://gavinstruve.github.io/tags/tutorial/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>appendix</title>
+      <link>http://gavinstruve.github.io/tags/appendix/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://gavinstruve.github.io/tags/appendix/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>citation</title>
+      <link>http://gavinstruve.github.io/tags/citation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://gavinstruve.github.io/tags/citation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>menu</title>
+      <link>http://gavinstruve.github.io/tags/menu/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://gavinstruve.github.io/tags/menu/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>numbered section</title>
+      <link>http://gavinstruve.github.io/tags/numbered-section/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://gavinstruve.github.io/tags/numbered-section/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sidenote</title>
+      <link>http://gavinstruve.github.io/tags/sidenote/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://gavinstruve.github.io/tags/sidenote/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>TOC</title>
+      <link>http://gavinstruve.github.io/tags/toc/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://gavinstruve.github.io/tags/toc/</guid>
       <description></description>
     </item>
     

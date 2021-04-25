@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>sports on A Hugo website</title>
-    <link>/tags/sports/</link>
-    <description>Recent content in sports on A Hugo website</description>
+    <title>sports on Gavin Struve&#39;s Github Site</title>
+    <link>http://gavinstruve.github.io/tags/sports/</link>
+    <description>Recent content in sports on Gavin Struve&#39;s Github Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 31 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/sports/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 25 Apr 2021 00:00:00 +0000</lastBuildDate><atom:link href="http://gavinstruve.github.io/tags/sports/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How much does recruiting impact success and vice versa in college basketball?</title>
-      <link>/how-much-does-recruiting-impact-success-and-vice-versa-in-college-basketball/</link>
+      <link>http://gavinstruve.github.io/post/2021/04/25/how-much-does-recruiting-impact-success-and-vice-versa-in-college-basketball/</link>
+      <pubDate>Sun, 25 Apr 2021 00:00:00 +0000</pubDate>
+      
+      <guid>http://gavinstruve.github.io/post/2021/04/25/how-much-does-recruiting-impact-success-and-vice-versa-in-college-basketball/</guid>
+      <description>It’s no secret that recruiting is an integral part of building a competent and competitive college basketball program. The best teams are often among the best recruiters, in theory good recruiting is rewarded with wins and success is rewarded with signing top recruits. However, this is not always the case. There are outliers, teams that get average recruits but finish among the top teams and recruiters on the court, as well as teams that recruit better than almost anyone but underperform relative to talent.</description>
+    </item>
+    
+    <item>
+      <title>How did free throw shooting translate to team success in perhaps the most impressive free throw shooting season in college basketball history?</title>
+      <link>http://gavinstruve.github.io/post/2021/03/31/how-did-free-throw-shooting-translate-to-team-success-in-perhaps-the-most-impressive-free-throw-shooting-season-in-college-basketball-history/</link>
       <pubDate>Wed, 31 Mar 2021 00:00:00 +0000</pubDate>
       
-      <guid>/how-much-does-recruiting-impact-success-and-vice-versa-in-college-basketball/</guid>
-      <description>It’s no secret that recruiting is an integral part of building a competent and competitive college basketball program. The best teams are often among the best recruiters, in theory good recruiting is rewarded with wins and success is rewarded with signing top recruits. However, this is not always the case. There are outliers, teams that get average recruits but finish among the top teams and recruiters on the court, as well as teams that recruit better than almost anyone but underperform relative to talent.</description>
+      <guid>http://gavinstruve.github.io/post/2021/03/31/how-did-free-throw-shooting-translate-to-team-success-in-perhaps-the-most-impressive-free-throw-shooting-season-in-college-basketball-history/</guid>
+      <description>Oral Roberts missed out on making history on March 27 in its loss to Arkansas. And no I’m not talking about becoming the first 15 seed to reach the men’s NCAA Tournament’s Elite 8. The Golden Eagles’ Cinderella run to the Sweet 16 was nothing short of spellbinding, but in the process, they missed out on toppling a 37-year old record. I’m talking about Harvard’s team free throw percentage record.</description>
+    </item>
+    
+    <item>
+      <title>Sports Data Analysis and Visualization</title>
+      <link>http://gavinstruve.github.io/2020-3-14-libraries/untitled/</link>
+      <pubDate>Mon, 29 Mar 2021 21:15:00 -0300</pubDate>
+      
+      <guid>http://gavinstruve.github.io/2020-3-14-libraries/untitled/</guid>
+      <description>  </description>
     </item>
     
   </channel>
