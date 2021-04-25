@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.81.0" />
+
+
+<title>How much does recruiting impact success and vice versa in college basketball? - A Hugo website</title>
+<meta property="og:title" content="How much does recruiting impact success and vice versa in college basketball? - A Hugo website">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/rstudio">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+
+    <h1 class="article-title">How much does recruiting impact success and vice versa in college basketball?</h1>
+
+    
+
+    <div class="article-content">
+      
+<script src="/how-much-does-recruiting-impact-success-and-vice-versa-in-college-basketball/index_files/header-attrs/header-attrs.js"></script>
+
+
+<p>It’s no secret that recruiting is an integral part of building a competent and competitive college basketball program. The best teams are often among the best recruiters, in theory good recruiting is rewarded with wins and success is rewarded with signing top recruits. However, this is not always the case. There are outliers, teams that get average recruits but finish among the top teams and recruiters on the court, as well as teams that recruit better than almost anyone but underperform relative to talent. This begs the question, how much of an impact does recruiting have on winning and on-court product?</p>
+<pre class="r"><code>library(tidyverse)
+library(gt)
+library(ggrepel)
+library(ggalt)
+library(ggplot2)</code></pre>
+<pre class="r"><code>fiveyrrecruits &lt;- read_csv(&quot;recruitingtables.csv&quot;)
+thisyrrecruits &lt;- read_csv(&quot;2021recruittables.csv&quot;)</code></pre>
+<pre class="r"><code>fiveyrrecruits</code></pre>
+<pre><code>## # A tibble: 93 x 15
+##    School         Commits `5-stars` `4-stars` `Avg. Recruiting Pts` `Avg. Rank`
+##    &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;                 &lt;dbl&gt;       &lt;dbl&gt;
+##  1 Kentucky            29        20         9                  70.3         1.8
+##  2 Duke                26        18         8                  70.4         1.8
+##  3 North Carolina      21         8         9                  64.3        11.4
+##  4 Gonzaga             19         1        12                  52.0        45.6
+##  5 Memphis             26         3         7                  49.2        48.6
+##  6 Oregon              22         5        14                  62.4        17.6
+##  7 UCLA                19         5        10                  57.9        30.4
+##  8 Kansas              20         5         9                  63.6        13.4
+##  9 Florida             18         3         7                  55.9        31  
+## 10 Florida State       20         4         5                  52.9        40.4
+## # … with 83 more rows, and 9 more variables: 2016 Avg. Rec Pts &lt;dbl&gt;,
+## #   2017 Avg. Rec Pts &lt;dbl&gt;, 2018 Avg. Rec Pts &lt;dbl&gt;, 2019 Avg. Rec Pts &lt;dbl&gt;,
+## #   2020 Avg. Rec Pts &lt;dbl&gt;, 5yrwinperc &lt;dbl&gt;, KenPom &lt;dbl&gt;,
+## #   Tournament Berths &lt;dbl&gt;, Tournament Wins &lt;dbl&gt;</code></pre>
+<pre class="r"><code>thisyrrecruits</code></pre>
+<pre><code>## # A tibble: 25 x 11
+##    School           Pts  Rank Commits `5-stars` `4-stars` `5yravg` `Avg. Rank`
+##    &lt;chr&gt;          &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;       &lt;dbl&gt;
+##  1 Michigan        69.5     1       6         2         3     55.0        32.6
+##  2 Gonzaga         69.0     2       4         2         2     52.0        45.6
+##  3 Duke            69.0     3       4         3         1     70.4         1.8
+##  4 Tennessee       68.8     4       5         2         2     48.6        51.2
+##  5 Florida State   65.9     5       4         1         2     52.9        40.4
+##  6 Kansas          65.0     6       5         0         4     63.6        13.4
+##  7 Kentucky        64.5     7       3         1         2     70.3         1.8
+##  8 Alabama         63.6     8       3         1         2     59          23  
+##  9 Michigan State  63.2     9       3         1         2     57.8        28.6
+## 10 Baylor          62.8    10       3         1         2     43.8        63.2
+## # … with 15 more rows, and 3 more variables: 5yrwinloss &lt;dbl&gt;, 21winloss &lt;dbl&gt;,
+## #   KenPom &lt;dbl&gt;</code></pre>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+
