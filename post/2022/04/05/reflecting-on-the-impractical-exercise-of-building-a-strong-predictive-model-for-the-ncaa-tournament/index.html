@@ -1,0 +1,1566 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.81.0" />
+
+
+<title>Reflecting on the impractical exercise of building a strong predictive model   for the NCAA Tournament - Gavin Struve&#39;s Github Site</title>
+<meta property="og:title" content="Reflecting on the impractical exercise of building a strong predictive model   for the NCAA Tournament - Gavin Struve&#39;s Github Site">
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/%3cnil%3e"
+         width=""
+         height=""
+         alt="">
+  </a>
+
+  <ul class="nav-links">
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">19 min read</span>
+    
+
+    <h1 class="article-title">Reflecting on the impractical exercise of building a strong predictive model   for the NCAA Tournament</h1>
+
+    
+    <span class="article-date">2022-04-05</span>
+    
+
+    <div class="article-content">
+      
+
+
+<p>Trying to craft a near-perfect bracket is difficult in itself. Attempting to build a predictive model without the nuances of human emotion for the NCAA Tournament can be an exercise in futility. But the idea is that you create a model that takes into account the factors and statistics that you you feed it and gives you a result that is more likely to be correct than your best guess while removing the element of human bias.</p>
+<p>The problem is that basketball outcomes, even at the highest level (especially at the highest level), so often do not make sense. The NBA is perhaps the most difficult league to make a predictive model for, but the NCAA Tournament has to be the most improbable sports playoff event in terms of outcomes, and I am hardly the first to make that assertion. It may also be the most incalculable major sporting event.</p>
+<p>Still, I took on the ill-fated endeavor of trying to predict the NCAA Tournament along with my classmates in building a machine learning model. For my predictors, I used sports reference’s simple rating system (a season-long metric that weighs average point differential with strength of schedule), kenpom’s adjusted efficiency margin (a measurement of a team’s average points per 100 possessions subtracted by points allowed per 100 possessions, both weighted by strength of schedule), kenpom’s luck metric, and plain old point differential. I added the latter because it illustrates how severely a game ended up as a win or loss but also lends credence to dominant mid majors. It brings a bit of needed variance to a model otherwise leaning toward favorites with its strength-based metrics like SRS and adjusted efficiency. Luck is also intended to add variance and show how a team got to a win or loss result.</p>
+<p>All four of my predictors are season-based metrics, so I am doing without rolling metrics and fully leaning into the line of thinking that how much momentum a team has entering the tournament doesn’t matter. I also went away from stylistic and matchup-based measures (offensive rebounding rate, free throw rate, etc.) because most studies show they have a marginal impact on result unless teams occupy the extremes. I used a support vector machine as my machine learning model.</p>
+<pre><code>## # A tibble: 90,410 × 104
+##    team_short_display_name team_uid team_alternate_… team_color team_display_na…
+##    &lt;chr&gt;                   &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      &lt;chr&gt;           
+##  1 Oakland                 s:40~l:… 927e4d           04091c     Oakland Golden …
+##  2 Iowa State              s:40~l:… 830b2c           660015     Iowa State Cycl…
+##  3 UCSB                    s:40~l:… fdb813           1D1160     UC Santa Barbar…
+##  4 Kansas                  s:40~l:… e8000d           0022B4     Kansas Jayhawks 
+##  5 SE Louisiana            s:40~l:… dca008           007550     SE Louisiana Li…
+##  6 Oklahoma State          s:40~l:… ff9900           FF6500     Oklahoma State …
+##  7 Southern Utah           s:40~l:… c2c3c0           d10000     Southern Utah T…
+##  8 Kansas State            s:40~l:… e7d2ad           633194     Kansas State Wi…
+##  9 McNeese                 s:40~l:… &lt;NA&gt;             00529C     McNeese Cowboys 
+## 10 Baylor                  s:40~l:… ffb81c           004834     Baylor Bears    
+## # … with 90,400 more rows, and 99 more variables: team_name &lt;chr&gt;,
+## #   team_logo &lt;chr&gt;, team_location &lt;chr&gt;, team_id &lt;dbl&gt;,
+## #   team_abbreviation &lt;chr&gt;, team_slug &lt;chr&gt;, field_goals_made &lt;dbl&gt;,
+## #   field_goals_attempted &lt;dbl&gt;, field_goal_pct &lt;dbl&gt;,
+## #   three_point_field_goals_made &lt;dbl&gt;,
+## #   three_point_field_goals_attempted &lt;dbl&gt;, three_point_field_goal_pct &lt;dbl&gt;,
+## #   free_throws_made &lt;dbl&gt;, free_throws_attempted &lt;dbl&gt;, …</code></pre>
+<pre><code>## # A tibble: 14 × 4
+##    variable                    type    role      source  
+##    &lt;chr&gt;                       &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;   
+##  1 game_id                     numeric ID        original
+##  2 game_date                   date    ID        original
+##  3 team_short_display_name     nominal ID        original
+##  4 opponent_short_display_name nominal ID        original
+##  5 season                      numeric ID        original
+##  6 team_srs                    numeric predictor original
+##  7 team_adj_eff                numeric predictor original
+##  8 team_luck                   numeric predictor original
+##  9 team_point_diff             numeric predictor original
+## 10 opponent_srs                numeric predictor original
+## 11 opponent_adj_eff            numeric predictor original
+## 12 opponent_luck               numeric predictor original
+## 13 opponent_point_diff         numeric predictor original
+## 14 TeamResult                  nominal outcome   original</code></pre>
+<div id="fnrogpbzfb" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#fnrogpbzfb .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: none;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#fnrogpbzfb .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#fnrogpbzfb .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#fnrogpbzfb .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#fnrogpbzfb .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fnrogpbzfb .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#fnrogpbzfb .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#fnrogpbzfb .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#fnrogpbzfb .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#fnrogpbzfb .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#fnrogpbzfb .gt_column_spanner {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#fnrogpbzfb .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#fnrogpbzfb .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#fnrogpbzfb .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#fnrogpbzfb .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#fnrogpbzfb .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: none;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#fnrogpbzfb .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fnrogpbzfb .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#fnrogpbzfb .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#fnrogpbzfb .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fnrogpbzfb .gt_first_summary_row {
+  border-top-style: none;
+  border-top-color: #D3D3D3;
+}
+
+#fnrogpbzfb .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#fnrogpbzfb .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fnrogpbzfb .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fnrogpbzfb .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: none;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#fnrogpbzfb .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#fnrogpbzfb .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fnrogpbzfb .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#fnrogpbzfb .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fnrogpbzfb .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#fnrogpbzfb .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fnrogpbzfb .gt_left {
+  text-align: left;
+}
+
+#fnrogpbzfb .gt_center {
+  text-align: center;
+}
+
+#fnrogpbzfb .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#fnrogpbzfb .gt_font_normal {
+  font-weight: normal;
+}
+
+#fnrogpbzfb .gt_font_bold {
+  font-weight: bold;
+}
+
+#fnrogpbzfb .gt_font_italic {
+  font-style: italic;
+}
+
+#fnrogpbzfb .gt_super {
+  font-size: 65%;
+}
+
+#fnrogpbzfb .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#fnrogpbzfb .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#fnrogpbzfb .gt_slash_mark {
+  font-size: 0.7em;
+  line-height: 0.7em;
+  vertical-align: 0.15em;
+}
+
+#fnrogpbzfb .gt_fraction_numerator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: 0.45em;
+}
+
+#fnrogpbzfb .gt_fraction_denominator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: -0.05em;
+}
+</style>
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="2" class="gt_heading gt_title gt_font_normal" style="color: #000000; text-align: left; font-weight: bold;">My Predictors</th>
+    </tr>
+    <tr>
+      <th colspan="2" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #000000; text-align: left;">The Core Four.</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: #000000; font-size: 12; font-weight: bold;">variable</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: #000000; font-size: 12; font-weight: bold;">role</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">team_srs</td>
+<td class="gt_row gt_left">predictor</td></tr>
+    <tr><td class="gt_row gt_left gt_striped">team_adj_eff</td>
+<td class="gt_row gt_left gt_striped">predictor</td></tr>
+    <tr><td class="gt_row gt_left">team_luck</td>
+<td class="gt_row gt_left">predictor</td></tr>
+    <tr><td class="gt_row gt_left gt_striped">team_point_diff</td>
+<td class="gt_row gt_left gt_striped">predictor</td></tr>
+    <tr><td class="gt_row gt_left">opponent_srs</td>
+<td class="gt_row gt_left">predictor</td></tr>
+    <tr><td class="gt_row gt_left gt_striped">opponent_adj_eff</td>
+<td class="gt_row gt_left gt_striped">predictor</td></tr>
+    <tr><td class="gt_row gt_left">opponent_luck</td>
+<td class="gt_row gt_left">predictor</td></tr>
+    <tr><td class="gt_row gt_left gt_striped">opponent_point_diff</td>
+<td class="gt_row gt_left gt_striped">predictor</td></tr>
+    <tr><td class="gt_row gt_left">TeamResult</td>
+<td class="gt_row gt_left">outcome</td></tr>
+  </tbody>
+  <tfoot class="gt_sourcenotes">
+    <tr>
+      <td class="gt_sourcenote" colspan="2"><strong>By:</strong> Gavin Struve</td>
+    </tr>
+  </tfoot>
+  
+</table>
+</div>
+<p>The result this month that best exemplifies the erratic nature of the big dance for me was not Saint Peter’s Cinderella run, but a microcosm of it. It all begins with the Peacocks’ upset of 2-seed Kentucky. The Wildcats, who fell in the first round, had a fairly dominant season in which they routed both national championship participants - North Carolina by 29 and Kansas by 18. Kentucky also lost its season opener to Duke, which went 1-2 against its lower-billed rival, including a brutal Final Four loss. My model was not smart enough to predict St. Peter’s, but curiously, it went against the Wildcats soon after, despite them being an [extremely popular pick] <a href="https://fantasy.espn.com/tournament-challenge-bracket/2022/en/whopickedwhom">extremely popular pick</a>.</p>
+<p>My model did not even pick Kentucky to reach the Elite Eight. Instead, my model chose to die on the slightly more sturdy hill of defending champion Baylor, who was ranked just ahead of the Wildcats in SRS and kenpom’s adjusted efficiency. Here’s what my Sweet 16 games in that East Region looked like.</p>
+<pre><code>## # A tibble: 2 × 3
+##   .metric  .estimator .estimate
+##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
+## 1 accuracy binary         0.657
+## 2 kap      binary         0.314</code></pre>
+<pre><code>## # A tibble: 2 × 3
+##   .metric  .estimator .estimate
+##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
+## 1 accuracy binary         0.658
+## 2 kap      binary         0.316</code></pre>
+<pre><code>##  Setting default kernel parameters  
+## line search fails -0.9094594 -0.001124908 7.502514e-05 2.357606e-08 -8.491571e-09 -3.297828e-11 -6.370821e-13</code></pre>
+<pre><code>## # A tibble: 2 × 3
+##   .metric  .estimator .estimate
+##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
+## 1 accuracy binary         0.657
+## 2 kap      binary         0.313</code></pre>
+<pre><code>## # A tibble: 2 × 14
+##   .pred_class team_short_displa… opponent_short_d… opponent_srs opponent_adj_eff
+##   &lt;fct&gt;       &lt;chr&gt;              &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+## 1 W           Purdue             Kentucky                  22.4             27.3
+## 2 W           Baylor             UCLA                      20.4             24.8
+## # … with 9 more variables: opponent_luck &lt;dbl&gt;, opponent_point_diff &lt;dbl&gt;,
+## #   game_id &lt;int&gt;, game_date &lt;date&gt;, season &lt;dbl&gt;, team_srs &lt;dbl&gt;,
+## #   team_adj_eff &lt;dbl&gt;, team_luck &lt;dbl&gt;, team_point_diff &lt;dbl&gt;</code></pre>
+<pre class="r"><code>round1 %&gt;% 
+  select(team_short_display_name, .pred_class, opponent_short_display_name) %&gt;%
+  gt() %&gt;% 
+  cols_label(
+    team_short_display_name = &quot;Team&quot;,
+    .pred_class = &quot;Prediction&quot;,
+    opponent_short_display_name = &quot;Opponent&quot;
+  ) %&gt;%
+  tab_header(
+    title = &quot;East Region: Sweet Sixteen&quot;,
+    subtitle = &quot;My model was less bullish on Kentucky but did not see the East finalists coming&quot;
+  ) %&gt;%  
+  tab_source_note(
+    source_note = md(&quot;**By:** Gavin Struve&quot;)
+  ) %&gt;% 
+  tab_style(
+    style = cell_text(color = &quot;black&quot;, weight = &quot;bold&quot;, align = &quot;left&quot;),
+    locations = cells_title(&quot;title&quot;)
+  ) %&gt;% 
+  tab_style(
+    style = cell_text(color = &quot;red&quot;, align = &quot;left&quot;),
+    locations = cells_title(&quot;subtitle&quot;)
+  ) %&gt;%
+  tab_style(
+     locations = cells_column_labels(columns = everything()),
+     style = list(
+       cell_borders(sides = &quot;bottom&quot;, weight = px(3)),
+       cell_text(weight = &quot;bold&quot;, size=12)
+     )
+   ) %&gt;%
+  opt_row_striping() %&gt;% 
+  opt_table_lines(&quot;none&quot;)</code></pre>
+<div id="azxmdtezfw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#azxmdtezfw .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: none;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#azxmdtezfw .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#azxmdtezfw .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#azxmdtezfw .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#azxmdtezfw .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#azxmdtezfw .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#azxmdtezfw .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#azxmdtezfw .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#azxmdtezfw .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#azxmdtezfw .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#azxmdtezfw .gt_column_spanner {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#azxmdtezfw .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#azxmdtezfw .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#azxmdtezfw .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#azxmdtezfw .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#azxmdtezfw .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: none;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#azxmdtezfw .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#azxmdtezfw .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#azxmdtezfw .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#azxmdtezfw .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#azxmdtezfw .gt_first_summary_row {
+  border-top-style: none;
+  border-top-color: #D3D3D3;
+}
+
+#azxmdtezfw .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#azxmdtezfw .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#azxmdtezfw .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#azxmdtezfw .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: none;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#azxmdtezfw .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#azxmdtezfw .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#azxmdtezfw .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#azxmdtezfw .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#azxmdtezfw .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#azxmdtezfw .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#azxmdtezfw .gt_left {
+  text-align: left;
+}
+
+#azxmdtezfw .gt_center {
+  text-align: center;
+}
+
+#azxmdtezfw .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#azxmdtezfw .gt_font_normal {
+  font-weight: normal;
+}
+
+#azxmdtezfw .gt_font_bold {
+  font-weight: bold;
+}
+
+#azxmdtezfw .gt_font_italic {
+  font-style: italic;
+}
+
+#azxmdtezfw .gt_super {
+  font-size: 65%;
+}
+
+#azxmdtezfw .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#azxmdtezfw .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#azxmdtezfw .gt_slash_mark {
+  font-size: 0.7em;
+  line-height: 0.7em;
+  vertical-align: 0.15em;
+}
+
+#azxmdtezfw .gt_fraction_numerator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: 0.45em;
+}
+
+#azxmdtezfw .gt_fraction_denominator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: -0.05em;
+}
+</style>
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="3" class="gt_heading gt_title gt_font_normal" style="color: #000000; text-align: left; font-weight: bold;">East Region: Sweet Sixteen</th>
+    </tr>
+    <tr>
+      <th colspan="3" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #FF0000; text-align: left;">My model was less bullish on Kentucky but did not see the East finalists coming</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: #000000; font-size: 12; font-weight: bold;">Team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: #000000; font-size: 12; font-weight: bold;">Prediction</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: #000000; font-size: 12; font-weight: bold;">Opponent</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">Purdue</td>
+<td class="gt_row gt_center">W</td>
+<td class="gt_row gt_left">Kentucky</td></tr>
+    <tr><td class="gt_row gt_left gt_striped">Baylor</td>
+<td class="gt_row gt_center gt_striped">W</td>
+<td class="gt_row gt_left gt_striped">UCLA</td></tr>
+  </tbody>
+  <tfoot class="gt_sourcenotes">
+    <tr>
+      <td class="gt_sourcenote" colspan="3"><strong>By:</strong> Gavin Struve</td>
+    </tr>
+  </tfoot>
+  
+</table>
+</div>
+<p>Purdue and UCLA did each make the Sweet 16, and my model predicted Kentucky to fall to the Boilermakers, but none of those schools reached the Elite 8. Instead, it was 8th-seeded North Carolina and 15th-seeded Saint Peter’s. I’d give my model a pass for missing those two, but it also got seven of the eight first round games correct in the South region before going 0-for-2 for that Elite Eight and missing analytics darling Houston.</p>
+<p>I only ended up correctly predicting both participants and the winner of a Sweet 16 matchup - Kansas and Providence in the Midwest. In fact, the national champion Jayhawks were the only Final Four team my model guessed correctly. Unfortunately, I had them losing to my national champion, Arizona, in the Final Four. The Wildcats lost in the Sweet 16. Anyway, I found it telling that my model chose Providence over Iowa despite a considerable difference in their adjusted efficiency and SRS ratings with Iowa in the teens and Providence in the 30s. The Hawkeyes were one of the hottest teams in the country entering the tournament, having just won the Big Ten Tournament. It didn’t matter as they didn’t even make it to the second round after getting upset by Richmond. The Friars then achieved the outcome against the Spiders that the model thought they would against the Hawkeyes. The model must have respected that the Friars led the country in luck according to kenpom. That’s what I had in mind when using season-long metrics as my predictors.</p>
+<pre><code>## # A tibble: 2 × 14
+##   .pred_class team_short_displa… opponent_short_d… opponent_srs opponent_adj_eff
+##   &lt;fct&gt;       &lt;chr&gt;              &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
+## 1 W           Providence         Iowa                      19.0             22.2
+## 2 W           Kansas             Creighton                 10.3             11.3
+## # … with 9 more variables: opponent_luck &lt;dbl&gt;, opponent_point_diff &lt;dbl&gt;,
+## #   game_id &lt;int&gt;, game_date &lt;date&gt;, season &lt;dbl&gt;, team_srs &lt;dbl&gt;,
+## #   team_adj_eff &lt;dbl&gt;, team_luck &lt;dbl&gt;, team_point_diff &lt;dbl&gt;</code></pre>
+<pre class="r"><code>round1 %&gt;% 
+  select(team_short_display_name, .pred_class, opponent_short_display_name) %&gt;%
+  gt() %&gt;% 
+  cols_label(
+    team_short_display_name = &quot;Team&quot;,
+    .pred_class = &quot;Prediction&quot;,
+    opponent_short_display_name = &quot;Opponent&quot;
+  ) %&gt;%
+  tab_header(
+    title = &quot;Midwest Region: Round of 32&quot;,
+    subtitle = &quot;The Lone Sweet 16 Pairing my Model Correctly Predicted&quot;
+  ) %&gt;%  
+  tab_source_note(
+    source_note = md(&quot;**By:** Gavin Struve&quot;)
+  ) %&gt;% 
+  tab_style(
+    style = cell_text(color = &quot;black&quot;, weight = &quot;bold&quot;, align = &quot;left&quot;),
+    locations = cells_title(&quot;title&quot;)
+  ) %&gt;% 
+  tab_style(
+    style = cell_text(color = &quot;blue&quot;, align = &quot;left&quot;),
+    locations = cells_title(&quot;subtitle&quot;)
+  ) %&gt;%
+  tab_style(
+     locations = cells_column_labels(columns = everything()),
+     style = list(
+       cell_borders(sides = &quot;bottom&quot;, weight = px(3)),
+       cell_text(weight = &quot;bold&quot;, size=12)
+     )
+   ) %&gt;%
+  opt_row_striping() %&gt;% 
+  opt_table_lines(&quot;none&quot;)</code></pre>
+<div id="bmoyhgbqfs" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#bmoyhgbqfs .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: none;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#bmoyhgbqfs .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bmoyhgbqfs .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#bmoyhgbqfs .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#bmoyhgbqfs .gt_bottom_border {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bmoyhgbqfs .gt_col_headings {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#bmoyhgbqfs .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#bmoyhgbqfs .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#bmoyhgbqfs .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#bmoyhgbqfs .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#bmoyhgbqfs .gt_column_spanner {
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#bmoyhgbqfs .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#bmoyhgbqfs .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#bmoyhgbqfs .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#bmoyhgbqfs .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#bmoyhgbqfs .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: none;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#bmoyhgbqfs .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bmoyhgbqfs .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#bmoyhgbqfs .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#bmoyhgbqfs .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bmoyhgbqfs .gt_first_summary_row {
+  border-top-style: none;
+  border-top-color: #D3D3D3;
+}
+
+#bmoyhgbqfs .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#bmoyhgbqfs .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bmoyhgbqfs .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bmoyhgbqfs .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: none;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#bmoyhgbqfs .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#bmoyhgbqfs .gt_table_body {
+  border-top-style: none;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#bmoyhgbqfs .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bmoyhgbqfs .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-left: 4px;
+  padding-right: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bmoyhgbqfs .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#bmoyhgbqfs .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#bmoyhgbqfs .gt_left {
+  text-align: left;
+}
+
+#bmoyhgbqfs .gt_center {
+  text-align: center;
+}
+
+#bmoyhgbqfs .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#bmoyhgbqfs .gt_font_normal {
+  font-weight: normal;
+}
+
+#bmoyhgbqfs .gt_font_bold {
+  font-weight: bold;
+}
+
+#bmoyhgbqfs .gt_font_italic {
+  font-style: italic;
+}
+
+#bmoyhgbqfs .gt_super {
+  font-size: 65%;
+}
+
+#bmoyhgbqfs .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 75%;
+  vertical-align: 0.4em;
+}
+
+#bmoyhgbqfs .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#bmoyhgbqfs .gt_slash_mark {
+  font-size: 0.7em;
+  line-height: 0.7em;
+  vertical-align: 0.15em;
+}
+
+#bmoyhgbqfs .gt_fraction_numerator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: 0.45em;
+}
+
+#bmoyhgbqfs .gt_fraction_denominator {
+  font-size: 0.6em;
+  line-height: 0.6em;
+  vertical-align: -0.05em;
+}
+</style>
+<table class="gt_table">
+  <thead class="gt_header">
+    <tr>
+      <th colspan="3" class="gt_heading gt_title gt_font_normal" style="color: #000000; text-align: left; font-weight: bold;">Midwest Region: Round of 32</th>
+    </tr>
+    <tr>
+      <th colspan="3" class="gt_heading gt_subtitle gt_font_normal gt_bottom_border" style="color: #0000FF; text-align: left;">The Lone Sweet 16 Pairing my Model Correctly Predicted</th>
+    </tr>
+  </thead>
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: #000000; font-size: 12; font-weight: bold;">Team</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: #000000; font-size: 12; font-weight: bold;">Prediction</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="border-bottom-width: 3px; border-bottom-style: solid; border-bottom-color: #000000; font-size: 12; font-weight: bold;">Opponent</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">Providence</td>
+<td class="gt_row gt_center">W</td>
+<td class="gt_row gt_left">Iowa</td></tr>
+    <tr><td class="gt_row gt_left gt_striped">Kansas</td>
+<td class="gt_row gt_center gt_striped">W</td>
+<td class="gt_row gt_left gt_striped">Creighton</td></tr>
+  </tbody>
+  <tfoot class="gt_sourcenotes">
+    <tr>
+      <td class="gt_sourcenote" colspan="3"><strong>By:</strong> Gavin Struve</td>
+    </tr>
+  </tfoot>
+  
+</table>
+</div>
+<p>Among other notables, the model was strangely bullish on Alabama, picking the Crimson Tide to beat higher-seeded Texas Tech and Duke to reach the Elite 8. They lost in the first round. The first round went well as a whole as it nailed 25 of 32 games then got nine of the 16 Sweet 16 participants correct. By the Elite 8, it had just Kansas left. It showed its warts as the tourney went along, not picking many upsets then having the wrong favorites advancing deep into the tournament. It failed to predict teams like Alabama, Baylor and Arizona all shooting poorly in their final games, but I’m not sure who could have.</p>
+<p>Perhaps the best path forward would be to build a model that incorporates past NCAA Tournament results and assigns a qualifier to a similar stylistic team and weighs the latter’s tournament results. Peter Keating and Jordan Brenner did something similar in [predicting upsets.] (<a href="https://theathletic.com/3173201/2022/03/09/2022-bracket-breakers-comparing-similar-teams-to-project-upsets-and-cinderellas-in-march-madness/" class="uri">https://theathletic.com/3173201/2022/03/09/2022-bracket-breakers-comparing-similar-teams-to-project-upsets-and-cinderellas-in-march-madness/</a>) It probably wouldn’t hurt to blend some stylistic elements, and that kind of model would require it. Until then, I’ll have to stomach being the most knowledgeable college basketball fan I know and landing in ESPN Tournament Challenge’s 53rd percentile.</p>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js//highlight.min.js"></script>
+
+
+
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+

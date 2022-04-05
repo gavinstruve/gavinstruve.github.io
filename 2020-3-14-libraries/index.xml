@@ -6,7 +6,16 @@
     <description>Recent content in 2020-3-14-libraries on Gavin Struve&#39;s Github Site</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 29 Mar 2021 21:15:00 -0300</lastBuildDate><atom:link href="http://gavinstruve.github.io/2020-3-14-libraries/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 02 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="http://gavinstruve.github.io/2020-3-14-libraries/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Reflecting on the impractical exercise of building a strong predictive model for the NCAA Tournament</title>
+      <link>http://gavinstruve.github.io/2020-3-14-libraries/reflecting-on-the-impractical-exercise-of-building-a-strong-predictive-model-for-the-ncaa-tournament/</link>
+      <pubDate>Sat, 02 Apr 2022 00:00:00 +0000</pubDate>
+      
+      <guid>http://gavinstruve.github.io/2020-3-14-libraries/reflecting-on-the-impractical-exercise-of-building-a-strong-predictive-model-for-the-ncaa-tournament/</guid>
+      <description>Trying to craft a near-perfect bracket is difficult in itself, trying to build a predictive model without the nuances of human emotion, can be an exercise in futility. It’s difficult to establish the buy-in to throw our eye test biases out the window. You can include some metrics to account for emotions, like luck and recency bias. Even injuries can be accounted for in the most advanced models. The idea is that you build a model that takes into account the factors that best predict success , and gives you a result that is more likely than your guess of being correct.</description>
+    </item>
+    
     <item>
       <title>Sports Data Analysis and Visualization</title>
       <link>http://gavinstruve.github.io/2020-3-14-libraries/untitled/</link>
