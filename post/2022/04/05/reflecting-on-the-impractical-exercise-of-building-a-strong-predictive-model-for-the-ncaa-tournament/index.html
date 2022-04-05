@@ -52,7 +52,7 @@
 
   <article class="article">
     
-    <span class="article-duration">19 min read</span>
+    <span class="article-duration">16 min read</span>
     
 
     <h1 class="article-title">Reflecting on the impractical exercise of building a strong predictive model   for the NCAA Tournament</h1>
@@ -67,45 +67,9 @@
 
 <p>Trying to craft a near-perfect bracket is difficult in itself. Attempting to build a predictive model without the nuances of human emotion for the NCAA Tournament can be an exercise in futility. But the idea is that you create a model that takes into account the factors and statistics that you you feed it and gives you a result that is more likely to be correct than your best guess while removing the element of human bias.</p>
 <p>The problem is that basketball outcomes, even at the highest level (especially at the highest level), so often do not make sense. The NBA is perhaps the most difficult league to make a predictive model for, but the NCAA Tournament has to be the most improbable sports playoff event in terms of outcomes, and I am hardly the first to make that assertion. It may also be the most incalculable major sporting event.</p>
-<p>Still, I took on the ill-fated endeavor of trying to predict the NCAA Tournament along with my classmates in building a machine learning model. For my predictors, I used sports reference’s simple rating system (a season-long metric that weighs average point differential with strength of schedule), kenpom’s adjusted efficiency margin (a measurement of a team’s average points per 100 possessions subtracted by points allowed per 100 possessions, both weighted by strength of schedule), kenpom’s luck metric, and plain old point differential. I added the latter because it illustrates how severely a game ended up as a win or loss but also lends credence to dominant mid majors. It brings a bit of needed variance to a model otherwise leaning toward favorites with its strength-based metrics like SRS and adjusted efficiency. Luck is also intended to add variance and show how a team got to a win or loss result.</p>
+<p>Still, I took on the ill-fated endeavor of trying to predict the NCAA Tournament along with my classmates in building a machine learning model. For my predictors, I used sports reference’s simple rating system (a season-long metric that weighs average point differential with strength of schedule), kenpom’s adjusted efficiency margin (a measurement of a team’s average points per 100 possessions subtracted by points allowed per 100 possessions, both weighted by strength of schedule), kenpom’s luck metric, and plain old point differential.</p>
+<p>I added point differential because it illustrates how severely a game ended up as a win or loss but also lends credence to dominant mid majors. It brings a bit of needed variance to a model otherwise leaning toward favorites with its strength-based metrics like SRS and adjusted efficiency. Luck is also intended to add variance and show how a team got to a win or loss result.</p>
 <p>All four of my predictors are season-based metrics, so I am doing without rolling metrics and fully leaning into the line of thinking that how much momentum a team has entering the tournament doesn’t matter. I also went away from stylistic and matchup-based measures (offensive rebounding rate, free throw rate, etc.) because most studies show they have a marginal impact on result unless teams occupy the extremes. I used a support vector machine as my machine learning model.</p>
-<pre><code>## # A tibble: 90,410 × 104
-##    team_short_display_name team_uid team_alternate_… team_color team_display_na…
-##    &lt;chr&gt;                   &lt;chr&gt;    &lt;chr&gt;            &lt;chr&gt;      &lt;chr&gt;           
-##  1 Oakland                 s:40~l:… 927e4d           04091c     Oakland Golden …
-##  2 Iowa State              s:40~l:… 830b2c           660015     Iowa State Cycl…
-##  3 UCSB                    s:40~l:… fdb813           1D1160     UC Santa Barbar…
-##  4 Kansas                  s:40~l:… e8000d           0022B4     Kansas Jayhawks 
-##  5 SE Louisiana            s:40~l:… dca008           007550     SE Louisiana Li…
-##  6 Oklahoma State          s:40~l:… ff9900           FF6500     Oklahoma State …
-##  7 Southern Utah           s:40~l:… c2c3c0           d10000     Southern Utah T…
-##  8 Kansas State            s:40~l:… e7d2ad           633194     Kansas State Wi…
-##  9 McNeese                 s:40~l:… &lt;NA&gt;             00529C     McNeese Cowboys 
-## 10 Baylor                  s:40~l:… ffb81c           004834     Baylor Bears    
-## # … with 90,400 more rows, and 99 more variables: team_name &lt;chr&gt;,
-## #   team_logo &lt;chr&gt;, team_location &lt;chr&gt;, team_id &lt;dbl&gt;,
-## #   team_abbreviation &lt;chr&gt;, team_slug &lt;chr&gt;, field_goals_made &lt;dbl&gt;,
-## #   field_goals_attempted &lt;dbl&gt;, field_goal_pct &lt;dbl&gt;,
-## #   three_point_field_goals_made &lt;dbl&gt;,
-## #   three_point_field_goals_attempted &lt;dbl&gt;, three_point_field_goal_pct &lt;dbl&gt;,
-## #   free_throws_made &lt;dbl&gt;, free_throws_attempted &lt;dbl&gt;, …</code></pre>
-<pre><code>## # A tibble: 14 × 4
-##    variable                    type    role      source  
-##    &lt;chr&gt;                       &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;   
-##  1 game_id                     numeric ID        original
-##  2 game_date                   date    ID        original
-##  3 team_short_display_name     nominal ID        original
-##  4 opponent_short_display_name nominal ID        original
-##  5 season                      numeric ID        original
-##  6 team_srs                    numeric predictor original
-##  7 team_adj_eff                numeric predictor original
-##  8 team_luck                   numeric predictor original
-##  9 team_point_diff             numeric predictor original
-## 10 opponent_srs                numeric predictor original
-## 11 opponent_adj_eff            numeric predictor original
-## 12 opponent_luck               numeric predictor original
-## 13 opponent_point_diff         numeric predictor original
-## 14 TeamResult                  nominal outcome   original</code></pre>
 <div id="fnrogpbzfb" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
@@ -552,65 +516,10 @@
   
 </table>
 </div>
-<p>The result this month that best exemplifies the erratic nature of the big dance for me was not Saint Peter’s Cinderella run, but a microcosm of it. It all begins with the Peacocks’ upset of 2-seed Kentucky. The Wildcats, who fell in the first round, had a fairly dominant season in which they routed both national championship participants - North Carolina by 29 and Kansas by 18. Kentucky also lost its season opener to Duke, which went 1-2 against its lower-billed rival, including a brutal Final Four loss. My model was not smart enough to predict St. Peter’s, but curiously, it went against the Wildcats soon after, despite them being an [extremely popular pick] <a href="https://fantasy.espn.com/tournament-challenge-bracket/2022/en/whopickedwhom">extremely popular pick</a>.</p>
+<p>The result this month that best exemplifies the erratic nature of the big dance for me was not Saint Peter’s Cinderella run, but a microcosm of it. It all begins with the Peacocks’ upset of 2-seed Kentucky. The Wildcats, who fell in the first round, had a fairly dominant season in which they routed both national championship participants - North Carolina by 29 and Kansas by 18. Kentucky also lost its season opener to Duke, which went 1-2 against its lower-billed rival, including a brutal Final Four loss. My model was not smart enough to predict St. Peter’s, but curiously, it went against the Wildcats soon after, despite them being an <a href="https://fantasy.espn.com/tournament-challenge-bracket/2022/en/whopickedwhom">extremely popular pick</a>.</p>
 <p>My model did not even pick Kentucky to reach the Elite Eight. Instead, my model chose to die on the slightly more sturdy hill of defending champion Baylor, who was ranked just ahead of the Wildcats in SRS and kenpom’s adjusted efficiency. Here’s what my Sweet 16 games in that East Region looked like.</p>
-<pre><code>## # A tibble: 2 × 3
-##   .metric  .estimator .estimate
-##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
-## 1 accuracy binary         0.657
-## 2 kap      binary         0.314</code></pre>
-<pre><code>## # A tibble: 2 × 3
-##   .metric  .estimator .estimate
-##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
-## 1 accuracy binary         0.658
-## 2 kap      binary         0.316</code></pre>
 <pre><code>##  Setting default kernel parameters  
 ## line search fails -0.9094594 -0.001124908 7.502514e-05 2.357606e-08 -8.491571e-09 -3.297828e-11 -6.370821e-13</code></pre>
-<pre><code>## # A tibble: 2 × 3
-##   .metric  .estimator .estimate
-##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt;
-## 1 accuracy binary         0.657
-## 2 kap      binary         0.313</code></pre>
-<pre><code>## # A tibble: 2 × 14
-##   .pred_class team_short_displa… opponent_short_d… opponent_srs opponent_adj_eff
-##   &lt;fct&gt;       &lt;chr&gt;              &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
-## 1 W           Purdue             Kentucky                  22.4             27.3
-## 2 W           Baylor             UCLA                      20.4             24.8
-## # … with 9 more variables: opponent_luck &lt;dbl&gt;, opponent_point_diff &lt;dbl&gt;,
-## #   game_id &lt;int&gt;, game_date &lt;date&gt;, season &lt;dbl&gt;, team_srs &lt;dbl&gt;,
-## #   team_adj_eff &lt;dbl&gt;, team_luck &lt;dbl&gt;, team_point_diff &lt;dbl&gt;</code></pre>
-<pre class="r"><code>round1 %&gt;% 
-  select(team_short_display_name, .pred_class, opponent_short_display_name) %&gt;%
-  gt() %&gt;% 
-  cols_label(
-    team_short_display_name = &quot;Team&quot;,
-    .pred_class = &quot;Prediction&quot;,
-    opponent_short_display_name = &quot;Opponent&quot;
-  ) %&gt;%
-  tab_header(
-    title = &quot;East Region: Sweet Sixteen&quot;,
-    subtitle = &quot;My model was less bullish on Kentucky but did not see the East finalists coming&quot;
-  ) %&gt;%  
-  tab_source_note(
-    source_note = md(&quot;**By:** Gavin Struve&quot;)
-  ) %&gt;% 
-  tab_style(
-    style = cell_text(color = &quot;black&quot;, weight = &quot;bold&quot;, align = &quot;left&quot;),
-    locations = cells_title(&quot;title&quot;)
-  ) %&gt;% 
-  tab_style(
-    style = cell_text(color = &quot;red&quot;, align = &quot;left&quot;),
-    locations = cells_title(&quot;subtitle&quot;)
-  ) %&gt;%
-  tab_style(
-     locations = cells_column_labels(columns = everything()),
-     style = list(
-       cell_borders(sides = &quot;bottom&quot;, weight = px(3)),
-       cell_text(weight = &quot;bold&quot;, size=12)
-     )
-   ) %&gt;%
-  opt_row_striping() %&gt;% 
-  opt_table_lines(&quot;none&quot;)</code></pre>
 <div id="azxmdtezfw" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
@@ -1048,46 +957,6 @@
 </div>
 <p>Purdue and UCLA did each make the Sweet 16, and my model predicted Kentucky to fall to the Boilermakers, but none of those schools reached the Elite 8. Instead, it was 8th-seeded North Carolina and 15th-seeded Saint Peter’s. I’d give my model a pass for missing those two, but it also got seven of the eight first round games correct in the South region before going 0-for-2 for that Elite Eight and missing analytics darling Houston.</p>
 <p>I only ended up correctly predicting both participants and the winner of a Sweet 16 matchup - Kansas and Providence in the Midwest. In fact, the national champion Jayhawks were the only Final Four team my model guessed correctly. Unfortunately, I had them losing to my national champion, Arizona, in the Final Four. The Wildcats lost in the Sweet 16. Anyway, I found it telling that my model chose Providence over Iowa despite a considerable difference in their adjusted efficiency and SRS ratings with Iowa in the teens and Providence in the 30s. The Hawkeyes were one of the hottest teams in the country entering the tournament, having just won the Big Ten Tournament. It didn’t matter as they didn’t even make it to the second round after getting upset by Richmond. The Friars then achieved the outcome against the Spiders that the model thought they would against the Hawkeyes. The model must have respected that the Friars led the country in luck according to kenpom. That’s what I had in mind when using season-long metrics as my predictors.</p>
-<pre><code>## # A tibble: 2 × 14
-##   .pred_class team_short_displa… opponent_short_d… opponent_srs opponent_adj_eff
-##   &lt;fct&gt;       &lt;chr&gt;              &lt;chr&gt;                    &lt;dbl&gt;            &lt;dbl&gt;
-## 1 W           Providence         Iowa                      19.0             22.2
-## 2 W           Kansas             Creighton                 10.3             11.3
-## # … with 9 more variables: opponent_luck &lt;dbl&gt;, opponent_point_diff &lt;dbl&gt;,
-## #   game_id &lt;int&gt;, game_date &lt;date&gt;, season &lt;dbl&gt;, team_srs &lt;dbl&gt;,
-## #   team_adj_eff &lt;dbl&gt;, team_luck &lt;dbl&gt;, team_point_diff &lt;dbl&gt;</code></pre>
-<pre class="r"><code>round1 %&gt;% 
-  select(team_short_display_name, .pred_class, opponent_short_display_name) %&gt;%
-  gt() %&gt;% 
-  cols_label(
-    team_short_display_name = &quot;Team&quot;,
-    .pred_class = &quot;Prediction&quot;,
-    opponent_short_display_name = &quot;Opponent&quot;
-  ) %&gt;%
-  tab_header(
-    title = &quot;Midwest Region: Round of 32&quot;,
-    subtitle = &quot;The Lone Sweet 16 Pairing my Model Correctly Predicted&quot;
-  ) %&gt;%  
-  tab_source_note(
-    source_note = md(&quot;**By:** Gavin Struve&quot;)
-  ) %&gt;% 
-  tab_style(
-    style = cell_text(color = &quot;black&quot;, weight = &quot;bold&quot;, align = &quot;left&quot;),
-    locations = cells_title(&quot;title&quot;)
-  ) %&gt;% 
-  tab_style(
-    style = cell_text(color = &quot;blue&quot;, align = &quot;left&quot;),
-    locations = cells_title(&quot;subtitle&quot;)
-  ) %&gt;%
-  tab_style(
-     locations = cells_column_labels(columns = everything()),
-     style = list(
-       cell_borders(sides = &quot;bottom&quot;, weight = px(3)),
-       cell_text(weight = &quot;bold&quot;, size=12)
-     )
-   ) %&gt;%
-  opt_row_striping() %&gt;% 
-  opt_table_lines(&quot;none&quot;)</code></pre>
 <div id="bmoyhgbqfs" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
@@ -1524,7 +1393,7 @@
 </table>
 </div>
 <p>Among other notables, the model was strangely bullish on Alabama, picking the Crimson Tide to beat higher-seeded Texas Tech and Duke to reach the Elite 8. They lost in the first round. The first round went well as a whole as it nailed 25 of 32 games then got nine of the 16 Sweet 16 participants correct. By the Elite 8, it had just Kansas left. It showed its warts as the tourney went along, not picking many upsets then having the wrong favorites advancing deep into the tournament. It failed to predict teams like Alabama, Baylor and Arizona all shooting poorly in their final games, but I’m not sure who could have.</p>
-<p>Perhaps the best path forward would be to build a model that incorporates past NCAA Tournament results and assigns a qualifier to a similar stylistic team and weighs the latter’s tournament results. Peter Keating and Jordan Brenner did something similar in [predicting upsets.] (<a href="https://theathletic.com/3173201/2022/03/09/2022-bracket-breakers-comparing-similar-teams-to-project-upsets-and-cinderellas-in-march-madness/" class="uri">https://theathletic.com/3173201/2022/03/09/2022-bracket-breakers-comparing-similar-teams-to-project-upsets-and-cinderellas-in-march-madness/</a>) It probably wouldn’t hurt to blend some stylistic elements, and that kind of model would require it. Until then, I’ll have to stomach being the most knowledgeable college basketball fan I know and landing in ESPN Tournament Challenge’s 53rd percentile.</p>
+<p>Perhaps the best path forward would be to build a model that incorporates past NCAA Tournament results and assigns a qualifier to a similar stylistic team and weighs the latter’s tournament results. Peter Keating and Jordan Brenner did something similar in <a href="https://theathletic.com/3173201/2022/03/09/2022-bracket-breakers-comparing-similar-teams-to-project-upsets-and-cinderellas-in-march-madness/">predicting upsets</a>. It probably wouldn’t hurt to blend some stylistic elements, and that kind of model would require it. Until then, I’ll have to stomach being one of the most knowledgeable college basketball fans I know and landing in ESPN Tournament Challenge’s 53rd percentile.</p>
 
     </div>
   </article>
