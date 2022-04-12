@@ -22,7 +22,7 @@
       <pubDate>Tue, 05 Apr 2022 00:00:00 +0000</pubDate>
       
       <guid>http://gavinstruve.github.io/post/2022/04/05/reflecting-on-the-impractical-exercise-of-building-a-strong-predictive-model-for-the-ncaa-tournament/</guid>
-      <description>Trying to craft a near-perfect bracket is difficult in itself. Attempting to build a predictive model without the nuances of human emotion for the NCAA Tournament can be an exercise in futility. But the idea is that you create a model that takes into account the factors and statistics that you you feed it and gives you a result that is more likely to be correct than your best guess while removing the element of human bias.</description>
+      <description>Trying to craft a near-perfect bracket is difficult in itself. Attempting to build a predictive model without the nuances of human emotion for the NCAA Tournament can be an exercise in futility. But the idea is that you create a model that takes into account the factors and statistics that you you feed it, and it gives you a result that is more likely to be correct than your best guess while removing the element of human bias.</description>
     </item>
     
     <item>
