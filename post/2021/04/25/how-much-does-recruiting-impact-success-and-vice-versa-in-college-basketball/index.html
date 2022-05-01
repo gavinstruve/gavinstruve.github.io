@@ -63,7 +63,7 @@
 
     <div class="article-content">
       
-<script src="/post/2021/04/25/how-much-does-recruiting-impact-success-and-vice-versa-in-college-basketball/index_files/header-attrs/header-attrs.js"></script>
+<script src="http://gavinstruve.github.io/post/2021/04/25/how-much-does-recruiting-impact-success-and-vice-versa-in-college-basketball/index_files/header-attrs/header-attrs.js"></script>
 
 
 <p>It’s no secret that recruiting is an integral part of building a competent and competitive college basketball program. The best teams are often among the best recruiters, in theory good recruiting is rewarded with wins, and success is rewarded with signing top recruits. However, this is not always the case. There are outliers, teams that get average recruits but finish among the top teams and recruiters on the court, as well as teams that recruit better than almost anyone but underperform relative to talent.</p>
@@ -585,7 +585,7 @@ thisyrrecruits &lt;- read_csv(&quot;2021recruittables.csv&quot;)</code></pre>
     panel.grid.minor = element_blank(),
     panel.grid.major.x = element_blank()
   )</code></pre>
-<p><img src="/post/2021/04/25/how-much-does-recruiting-impact-success-and-vice-versa-in-college-basketball/index_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+<p><img src="http://gavinstruve.github.io/post/2021/04/25/how-much-does-recruiting-impact-success-and-vice-versa-in-college-basketball/index_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 An efficiency rating above a zero essentially means you’re above average, which every power conference team is over the five-year period. A rating of 20 or above indicates around a top-20 team in a season and a rating of 30 indicates a title contender or elite team. To sustain either level over a multi-year span puts you in elite company.</p>
 <p>The added line directly shows who is overachieving and underachieving relative to their recruiting product. Kansas and Duke have translated their top recruiting classes into being among the top few on-court teams while schools like Kentucky, North Carolina and Oregon aren’t far behind. Contrary to popular belief, Texas actually hasn’t been as disappointing as some of its recruiting peers, rating as right above the kenpom bubble team standard on average along with Arizona. SEC football schools LSU and Alabama have fared worse with their top recruiting classes, and Arizona State has struggled to put forth a competent power conference product despite its fruitful recruiting efforts.</p>
 <pre class="r"><code>topteams &lt;- recruitingtables %&gt;% filter(fiveyrwinperc &gt; 0.73)
@@ -610,7 +610,7 @@ bottomteams &lt;- recruitingtables %&gt;% filter(fiveyrwinperc &lt; 0.45)</code>
     panel.grid.minor = element_blank(),
     panel.grid.major.x = element_blank()
   )</code></pre>
-<p><img src="/post/2021/04/25/how-much-does-recruiting-impact-success-and-vice-versa-in-college-basketball/index_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<p><img src="http://gavinstruve.github.io/post/2021/04/25/how-much-does-recruiting-impact-success-and-vice-versa-in-college-basketball/index_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 This bubble chart also provides breakdown of how a team’s average recruiting points intersected with its win loss percentage. Additionally, their average kenpom rating determines the size of the bubble. We have the best and worst teams labeled by filtering them out. We used a 73% winning percentage as the cutoff for the top teams because it provides a picture of the top ten-or-so teams without overwhelming the eye. The cutoff for the bottom teams is 45% for similar reasons, California and Vanderbilt overlap due to their close proximity in both axis measures and can’t be removed without taking out several other teams.</p>
 <p>Breaking down this chart, we can come to a myriad of conclusions. What pops out first is that Gonzaga has won over 90% of its games in the past five seasons with an amount average recruiting points compared to power conference teams. Houston is near 80% with a bottom-quarter recruiting ranking, and Wichita State is at a similar level.</p>
 <p>This season’s national champion, Baylor, has won nearly three-quarters of its games at a worse-than-average recruiting level. Looking at the worst teams, none of the bottom nine in winning percentage were among or close to the top recruiters. We can see a greater difference in size by kenpom weight. California and Washington State have similar winning percentages to Nebraska and Northwestern but noticeably worse adjusted efficiency ratings. Perhaps this gives less credence to the idea that the PAC 12 is comparable to the Big Ten after a far worse regular season but far better NCAA Tournament showing leaguewide.</p>
@@ -633,7 +633,7 @@ This bubble chart also provides breakdown of how a team’s average recruiting p
     plot.title = element_text(size = 14.5, face = &quot;bold&quot;),
     axis.title = element_text(size = 10),
    )</code></pre>
-<p><img src="/post/2021/04/25/how-much-does-recruiting-impact-success-and-vice-versa-in-college-basketball/index_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<p><img src="http://gavinstruve.github.io/post/2021/04/25/how-much-does-recruiting-impact-success-and-vice-versa-in-college-basketball/index_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 To finish looking forward, we have a dumbbell chart showing the change in average recruiting rank to recruiting rank this year for 2021’s top 25 recruiting teams as the recruiting period is about over. The blue end of the dumbbell indicates where the team’s class was ranked this year, and the red end is where their five-year average is. We can see almost everyone saw a huge improvement from their five-year average to 2021, highlighted by new No. 1 and 2 Michigan and Gonzaga. Only recruiting powerhouses Duke and Kentucky had worse classes by their standards.</p>
 <pre class="r"><code>fit &lt;- lm(fiveyrwinperc ~ avgrecruitingpts, data = recruitingtables)
 summary(fit)</code></pre>
