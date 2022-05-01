@@ -63,7 +63,7 @@
 
     <div class="article-content">
       
-<script src="http://gavinstruve.github.io/post/2021/03/31/how-did-free-throw-shooting-translate-to-team-success-in-perhaps-the-most-impressive-free-throw-shooting-season-in-college-basketball-history/index_files/header-attrs/header-attrs.js"></script>
+<script src="/post/2021/03/31/how-did-free-throw-shooting-translate-to-team-success-in-perhaps-the-most-impressive-free-throw-shooting-season-in-college-basketball-history/index_files/header-attrs/header-attrs.js"></script>
 
 
 <p>Oral Roberts missed out on making history on March 27 in its loss to Arkansas. And no I’m not talking about becoming the first 15 seed to reach the men’s NCAA Tournament’s Elite 8. The Golden Eagles’ Cinderella run to the Sweet 16 was nothing short of spellbinding, but in the process, they missed out on toppling a 37-year old record. I’m talking about Harvard’s team free throw percentage record. During the 1983-84 season, the Crimson went 15-11…and shot 82.2% from the free throw line as a team, a mark that has stood for nearly four decades.</p>
@@ -630,7 +630,7 @@ avgftteams &lt;- c(&quot;Free Throws&quot;=12.9, &quot;Total Points&quot;=71.4)<
         colors = c(&quot;black&quot;, &quot;blue&quot;)
         ) 
 )</code></pre>
-<p><img src="http://gavinstruve.github.io/post/2021/03/31/how-did-free-throw-shooting-translate-to-team-success-in-perhaps-the-most-impressive-free-throw-shooting-season-in-college-basketball-history/index_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<p><img src="/post/2021/03/31/how-did-free-throw-shooting-translate-to-team-success-in-perhaps-the-most-impressive-free-throw-shooting-season-in-college-basketball-history/index_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 This waffle chart offers a breakdown of average points and free throws per game for an average team versus a top free-throw shooting team. We can see teams that shoot free throws well score more total points. They may only be likely to make 0.8 more free throws per game, as we saw when we took averages above, but they average one less attempt per game, which is probably just a relatively random outcome. When the top free throw shooting teams are not only making more free throws per game but scoring considerably more points per game, it’s a good indicator that they’re more likely to win. But does the extra points correlate directly to wins?</p>
 <pre class="r"><code>ggplot() + 
   geom_dumbbell(
@@ -650,7 +650,7 @@ This waffle chart offers a breakdown of average points and free throws per game 
     plot.title = element_text(size = 14.5, face = &quot;bold&quot;),
     axis.title = element_text(size = 10),
    )</code></pre>
-<p><img src="http://gavinstruve.github.io/post/2021/03/31/how-did-free-throw-shooting-translate-to-team-success-in-perhaps-the-most-impressive-free-throw-shooting-season-in-college-basketball-history/index_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<p><img src="/post/2021/03/31/how-did-free-throw-shooting-translate-to-team-success-in-perhaps-the-most-impressive-free-throw-shooting-season-in-college-basketball-history/index_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 For a more literal example, this dumbbell chart shows the amount of points scored and allowed by the top free throw shooting teams over the course of this past season. The blue end of the dumbbell shows how many total points the team scored for the season, and the red end shows the amount of points allowed. Point differential is not a perfect gauge of how many games a team won, but there’s a close correlation. Outscoring an opponent means you beat them, it’s how much you beat or lose to them by that can skew point differential.</p>
 <p>This is the updated dataframe with all teams’ game logs through the Elite 8 this season. I’m going to use it to show how all teams compared in shooting from the line this year.</p>
 <pre class="r"><code>topfts &lt;- fts %&gt;% filter(FTPerc &gt; 0.80)</code></pre>
@@ -680,7 +680,7 @@ For a more literal example, this dumbbell chart shows the amount of points score
     panel.grid.major.x = element_blank()
   )</code></pre>
 <pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<p><img src="http://gavinstruve.github.io/post/2021/03/31/how-did-free-throw-shooting-translate-to-team-success-in-perhaps-the-most-impressive-free-throw-shooting-season-in-college-basketball-history/index_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<p><img src="/post/2021/03/31/how-did-free-throw-shooting-translate-to-team-success-in-perhaps-the-most-impressive-free-throw-shooting-season-in-college-basketball-history/index_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 This scatter plot shows the correlation between free throw percentage and winning percentage which you can see is a positive as the line slopes up. I labeled the top five free throw shooting teams from this season and made their dots red to show where they finished for winning percentage. All five won over half of their games, and Colorado and Virginia won the most of the five while playing in power conferences.</p>
 <pre class="r"><code>fit &lt;- lm(WLPerc ~ FTPerc, data = fts)
 summary(fit)</code></pre>

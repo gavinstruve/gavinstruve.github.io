@@ -63,7 +63,7 @@
 
     <div class="article-content">
       
-<script src="http://gavinstruve.github.io/post/2021/03/29/trying-new-table-libraries/index_files/header-attrs/header-attrs.js"></script>
+<script src="/post/2021/03/29/trying-new-table-libraries/index_files/header-attrs/header-attrs.js"></script>
 
 
 <pre class="r"><code>library(reactable)
@@ -202,10 +202,10 @@ mutate(TeamScore = as.numeric(TeamScore), OpponentScore = as.numeric(OpponentSco
 ## #   DefTotalTurnovers &lt;dbl&gt;, Team &lt;chr&gt;, Conference &lt;chr&gt;, diff &lt;dbl&gt;</code></pre>
 <pre class="r"><code>library(ggplot2)</code></pre>
 <pre class="r"><code>ggplot()+ geom_point(data=differential, aes(x=TeamScore, y=OpponentScore), color=&quot;grey&quot;)</code></pre>
-<p><img src="http://gavinstruve.github.io/post/2021/03/29/trying-new-table-libraries/index_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<p><img src="/post/2021/03/29/trying-new-table-libraries/index_files/figure-html/unnamed-chunk-11-1.png" width="672" />
 Ggplot helps create a chart showing the differential of about every game this season. As can be expected, it’s all over the place. The best possible scenario is landing in the bottom right corner, meaning you scored a lot of points and let up very few, and the top left is the exact opposite.</p>
 <pre class="r"><code>ggplot() + geom_point(data=differential, aes(x=TeamScore, y=OpponentScore), color=&quot;grey&quot;) + geom_point(data=worstgames, aes(x=TeamScore, y=OpponentScore), color=&quot;red&quot;)</code></pre>
-<p><img src="http://gavinstruve.github.io/post/2021/03/29/trying-new-table-libraries/index_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<p><img src="/post/2021/03/29/trying-new-table-libraries/index_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 Now, using the worstgames dataframe, I’ve marked the single game that met that standard (a 65 point victory) in red.</p>
 <pre class="r"><code>library(ggalt)</code></pre>
 <pre><code>## Registered S3 methods overwritten by &#39;ggalt&#39;:
@@ -217,12 +217,12 @@ Now, using the worstgames dataframe, I’ve marked the single game that met that
 ##   grobY.absoluteGrob      ggplot2</code></pre>
 <pre class="r"><code>ggplot() + geom_point(data=differential, aes(x=TeamScore, y=OpponentScore), color=&quot;grey&quot;) + geom_point(data=worstgames, aes(x=TeamScore, y=OpponentScore), color=&quot;red&quot;) + 
   geom_encircle(data=worstgames, aes(x=TeamScore, y=OpponentScore), s_shape=.5, expand=.03, colour=&quot;red&quot;)</code></pre>
-<p><img src="http://gavinstruve.github.io/post/2021/03/29/trying-new-table-libraries/index_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<p><img src="/post/2021/03/29/trying-new-table-libraries/index_files/figure-html/unnamed-chunk-14-1.png" width="672" />
 I added geom_encircle to bring more attention to our outlier from the worstgames dataset.</p>
 <pre class="r"><code>ggplot() + geom_point(data=differential, aes(x=TeamScore, y=OpponentScore), color=&quot;grey&quot;) + geom_point(data=worstgames, aes(x=TeamScore, y=OpponentScore), color=&quot;red&quot;) + 
   geom_encircle(data=worstgames, aes(x=TeamScore, y=OpponentScore), s_shape=.5, expand=.03, colour=&quot;red&quot;) +
   labs(title=&quot;Point differential of every game this season&quot;, subtitle=&quot;Only one game had a scoring margin of over 65 points.&quot;, x=&quot;Points Scored&quot;, y=&quot;Points Allowed&quot;) </code></pre>
-<p><img src="http://gavinstruve.github.io/post/2021/03/29/trying-new-table-libraries/index_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<p><img src="/post/2021/03/29/trying-new-table-libraries/index_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 Now I’ve added a title and subtitle using labs and changed the x and y axes labels.</p>
 <pre class="r"><code>ggplot() + geom_point(data=differential, aes(x=TeamScore, y=OpponentScore), color=&quot;grey&quot;) + geom_point(data=worstgames, aes(x=TeamScore, y=OpponentScore), color=&quot;red&quot;) + 
   geom_encircle(data=worstgames, aes(x=TeamScore, y=OpponentScore), s_shape=.5, expand=.03, colour=&quot;red&quot;) +
@@ -234,7 +234,7 @@ Now I’ve added a title and subtitle using labs and changed the x and y axes la
     plot.subtitle = element_text(size=10), 
     panel.grid.minor = element_blank()
     )</code></pre>
-<p><img src="http://gavinstruve.github.io/post/2021/03/29/trying-new-table-libraries/index_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<p><img src="/post/2021/03/29/trying-new-table-libraries/index_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 Here I have added a minimal theme, bolded the title and added a source and credit line at the bottom.</p>
 
     </div>
